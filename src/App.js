@@ -1,5 +1,12 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import './App.scss';
+import Register from "./pages/Register/Register";
+import Home from "./pages/Home/Home";
+import Set from "./pages/Set/Set";
+import Profile from "./pages/Profile/Profile";
+import Sets from "./pages/Sets/Sets";
+import Sounds from "./pages/Sounds/Sounds";
+import Error from "./pages/Error/Error";
 
 function App() {
   return (
