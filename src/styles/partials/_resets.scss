@@ -1,0 +1,32 @@
+@use "./variables" as *;
+@use "./typography" as *;
+
+// CSS Resets
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: $font, "Courier New", monospace;
+  color: $primary-color-3;
+  background-color: $primary-color-1;
+}
+
+a {
+  text-decoration: none;
+}

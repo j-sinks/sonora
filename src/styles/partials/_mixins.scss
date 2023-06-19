@@ -1,0 +1,52 @@
+@use "./variables" as *;
+
+// Media Queries
+
+@mixin media-tablet {
+  @media (min-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin media-desktop {
+  @media (min-width: $desktop-breakpoint) {
+    @content;
+  }
+}
+
+// Button
+
+// @mixin button {
+//   height: 3.6rem;
+//   width: 100%;
+//   padding: 0 1.6rem;
+//   border-radius: 2rem;
+//   text-align: center;
+//   cursor: pointer;
+//   background-repeat: no-repeat;
+
+//   @include media-tablet {
+//     height: 3.8rem;
+//   }
+// }
+
+// Form
+
+// @mixin form-field {
+//   font-family: inherit;
+//   height: 3.6rem;
+//   width: 100%;
+//   padding: 0 1.6rem;
+//   border: 0.1rem solid $secondary-color-2;
+//   border-radius: 2rem;
+//   font-size: 1.3rem;
+//   line-height: 2rem;
+//   background-repeat: no-repeat;
+//   outline: none;
+
+//   @include media-tablet {
+//     height: 3.8rem;
+//     font-size: 1.4rem;
+//     line-height: 2.2rem;
+//   }
+// }
