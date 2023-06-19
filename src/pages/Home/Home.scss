@@ -1,3 +1,40 @@
 @use "../../styles/partials/typography";
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
+
+.home {
+
+  &__title {
+    margin-bottom: 2.4rem;
+  }
+
+  &__genres-container {
+    @include flex(row, space-between, null);
+    flex-wrap: wrap;  }
+}
+
+.genre {
+  @include flex(column, center, null);
+  background-color: $primary-color-2;
+  height: 10vh;
+  width: 48.8%;
+  border-radius: 0.4rem;
+  padding-left: 1.6rem;
+  margin: 0 0.4rem 0.4rem 0;
+
+  &:hover {
+    background-color: $primary-color-4;
+  }
+
+  &:hover .genre__title {
+    color: $primary-color-2;
+  } 
+
+  &:hover .genre__subtitle {
+    color: $primary-color-3;
+  } 
+
+  &__subtitle {
+    color: $primary-color-4;
+  }
+}

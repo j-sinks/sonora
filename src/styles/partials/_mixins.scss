@@ -14,6 +14,20 @@
   }
 }
 
+// General
+
+@mixin flex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin link-hover($opacity, $scale) {
+  opacity: $opacity;
+  transform: $scale;
+}
+
 // Button
 
 // @mixin button {
