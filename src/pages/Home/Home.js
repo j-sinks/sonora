@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Home.scss";
 import Loading from "../../components/Loading/Loading";
+import GenreCard from "../../components/GenreCard/GenreCard";
 
 const Home = () => {
   const [sounds, setSounds] = useState(null);
   const [subgenres, setSubgenres] = useState(null);
 
+  // Retrieve all sounds from database
   const getSounds = async () => {
     try {
       const response = await axios.get(
@@ -23,9 +24,25 @@ const Home = () => {
     }
   };
 
+  // Takes the sounds state and created a new array inlcuding a subset of the data
+  // Following this, a new array is created containing only unique subgenre values 
+  // The resulting array is then used to set state
   const getSubgenres = (sounds) => {
-    const subgenres = sounds.map((sound) => sound.subgenre);
-    const uniqueSubgenres = [...new Set(subgenres)];
+    const genreInfo = sounds.map((sound) => ({
+      id: crypto.randomUUID(),
+      subgenre: sound.subgenre,
+      genre: sound.genre,
+    }));
+
+    const uniqueSubgenres = Array.from(
+      new Set(genreInfo.map((sound) => sound.subgenre))
+    ).map((subgenre) => {
+      const { genre, id } = genreInfo.find(
+        (sound) => sound.subgenre === subgenre
+      );
+      return { id, subgenre, genre };
+    });
+
     setSubgenres(uniqueSubgenres);
   };
 
@@ -37,29 +54,16 @@ const Home = () => {
     return <Loading />;
   }
 
-  // Get subgenres from database
-  // Create genre cards using map (using data above )
-
   return (
     <main className="home">
       <h1 className="home__title">Select Genre</h1>
       <div className="home__genres-container">
-        <article className="genre">
-          <h2 className="genre__title">Raw Deep</h2>
-          <h3 className="genre__subtitle">House</h3>
-        </article>
-        <article className="genre">
-          <h2 className="genre__title">Raw Deep</h2>
-          <h3 className="genre__subtitle">House</h3>
-        </article>
-        <article className="genre">
-          <h2 className="genre__title">Raw Deep</h2>
-          <h3 className="genre__subtitle">House</h3>
-        </article>
-        <article className="genre">
-          <h2 className="genre__title">Raw Deep</h2>
-          <h3 className="genre__subtitle">House</h3>
-        </article>
+        {subgenres.map((subgenre) => (
+          <GenreCard
+            key={subgenre.id}
+            genreInfo={subgenre}
+          />
+        ))}
       </div>
     </main>
   );

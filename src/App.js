@@ -16,7 +16,7 @@ function App() {
             <Route path="/register" element={<Register />}  />
             <Route path="/" element={<Home />}  />
             <Route path="home" element={<Navigate to="/" />} />
-            <Route path="set" element={<Set />}  />
+            <Route path="set/:subgenre" element={<Set />}  />
             <Route path="profile/:userId" element={<Profile />}  />
             <Route path="profile/:userId/sets" element={<Sets />}  />
             <Route path="profile/:userId/sets/:setId" element={<Set />}  />
