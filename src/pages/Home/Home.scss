@@ -21,6 +21,8 @@
   border-radius: 0.4rem;
   padding-left: 1.6rem;
   margin: 0 0.4rem 0.4rem 0;
+  cursor: pointer;
+  transition: 0.2s;
 
   &:hover {
     background-color: $primary-color-4;
