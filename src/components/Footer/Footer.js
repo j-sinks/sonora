@@ -1,9 +1,10 @@
+import moment from "moment";
 import "./Footer.scss";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <p className="footer__text">© Sonora Inc. All Rights Reserved.</p>
+      <p className="footer__text">© {moment().year()} Sonora. All Rights Reserved.</p>
     </footer>
   );
 };

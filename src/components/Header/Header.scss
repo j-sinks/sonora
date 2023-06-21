@@ -3,7 +3,7 @@
 @use "../../styles/partials/mixins" as *;
 
 .header {
-
+  
   &__nav {
     @include flex(row, center, center);
   }
