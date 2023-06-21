@@ -5,7 +5,6 @@ import { splitOnUnderscore } from "../../utils/stringFormatting";
 import { randomIndex } from "../../utils/math";
 import "./Set.scss";
 import Loading from "../../components/Loading/Loading";
-import backBtn from "../../assets/images/icons/chevron-left-white.svg";
 import moreInfo from "../../assets/images/icons/more-horizontal-black.svg";
 import addSound from "../../assets/images/icons/plus-grey.svg";
 import shuffleBtn from "../../assets/images/icons/ph_shuffle-fill-white.svg";
@@ -202,11 +201,6 @@ const Set = () => {
 
   return (
     <main>
-      <div>
-        <Link to="/">
-          <img className="nav-icon" src={backBtn} alt="back icon" />
-        </Link>
-      </div>
       <section className="set">
         <article className="sound sound--1" onClick={() => handleMuteClick(0)}>
           <img

@@ -2,14 +2,6 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
 
-.nav-icon {
-  cursor: pointer;
-
-  &:hover {
-    @include cta-hover(0.9, scale(1.33));
-  }
-}
-
 .set {
   @include flex(column, center, center);
   height: 80vh;

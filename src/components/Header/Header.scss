@@ -1,0 +1,42 @@
+@use "../../styles/partials/typography";
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.header {
+
+  &__nav {
+    @include flex(row, center, center);
+  }
+
+  &__nav-container {
+    width: 33.3vh;
+    display: flex;
+
+    &--left {
+      justify-content: flex-start;
+      padding-left: 0.8rem;
+      padding-top: 1rem;
+    }
+
+    &--center {
+      justify-content: center;
+    }
+
+    &--right {
+      justify-content: flex-end;
+      padding-right: 0.8rem;
+    }
+  }
+}
+
+.logo {
+  height: 10rem;
+}
+
+.nav-icon {
+  cursor: pointer;
+
+  &:hover {
+    @include cta-hover(0.9, scale(1.33));
+  }
+}
