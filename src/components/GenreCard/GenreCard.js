@@ -1,18 +1,9 @@
 import { Link } from "react-router-dom";
+import { formattedSubgenre } from "../../utils/stringFormatting";
 import "./GenreCard.scss";
 
 const GenreCard = ({ genreInfo }) => {
   const { subgenre, genre } = genreInfo;
-
-  // Split the input string by the underscore and capitalise first letter
-  const formattedSubgenre = (str) => {
-    const words = str.split("_");
-    const formattedString = words
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-
-    return formattedString;
-  };
 
   return (
     <Link className="genre" to={`set/${subgenre}`}>

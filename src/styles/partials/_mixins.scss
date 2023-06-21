@@ -23,7 +23,7 @@
   align-items: $align;
 }
 
-@mixin link-hover($opacity, $scale) {
+@mixin cta-hover($opacity, $scale) {
   opacity: $opacity;
   transform: $scale;
 }

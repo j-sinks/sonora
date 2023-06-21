@@ -3,7 +3,82 @@
 @use "../../styles/partials/mixins" as *;
 
 .set {
-  @include flex(column, space-around, center);
-  height: 60vh;
-  padding-top: 25vh;
+  @include flex(column, center, center);
+  height: 100vh;
+  padding: 20vh 0 20vh 0;
+}
+
+.sound {
+  @include flex(column, center, flex-start);
+  position: relative;
+  height: 15vh;
+  min-height: 10rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  margin-bottom: 0.8rem;
+  padding-left: 1.6rem;
+  color: $primary-color-1;
+
+  &--1 {
+    background-color: $sound-color-1;
+  }
+
+  &--2 {
+    background-color: $sound-color-2;
+  }
+
+  &--3 {
+    background-color: $sound-color-3;
+  }
+
+  &--4 {
+    background-color: $sound-color-4;
+  }
+
+  &--add {
+    @include flex(null, center, center);
+    background-color: $primary-color-6;
+  }
+
+  &__more-icon {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    cursor: pointer;
+
+    &:hover {
+      @include cta-hover(0.75, scale(1.25));
+    }
+  }
+
+  // &__info-container {
+
+  // }
+
+}
+
+.controls {
+  @include flex(row, space-evenly, center);
+  height: 10vh;
+  min-height: 8rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: $primary-color-5;
+  padding: 1rem 0;
+
+  &__icon {
+    cursor: pointer;
+
+    // &--primary {
+
+    // }
+
+    &--secondary {
+
+      &:hover {
+        @include cta-hover(0.9, scale(1.3));
+      }
+    }
+
+  }
 }
