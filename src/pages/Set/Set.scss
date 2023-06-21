@@ -69,9 +69,12 @@
   &__icon {
     cursor: pointer;
 
-    // &--primary {
+    &--primary {
 
-    // }
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
 
     &--secondary {
 

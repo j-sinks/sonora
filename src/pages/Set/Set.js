@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { splitOnUnderscore } from "../../utils/stringFormatting";
+import { randomIndex } from "../../utils/math";
 import "./Set.scss";
 import Loading from "../../components/Loading/Loading";
 import moreInfo from "../../assets/images/icons/more-horizontal-black.svg";
@@ -9,6 +10,7 @@ import addSound from "../../assets/images/icons/plus-grey.svg";
 import shuffleBtn from "../../assets/images/icons/ph_shuffle-fill-white.svg";
 import playBtn from "../../assets/images/icons/play-button.svg";
 import stopBtn from "../../assets/images/icons/stop-button.svg";
+import resetBtn from "../../assets/images/icons//reset-button.svg";
 import saveBtn from "../../assets/images/icons/save-white.svg";
 
 const Set = () => {
@@ -19,13 +21,15 @@ const Set = () => {
   const [bass, setBass] = useState(null);
   const [synth, setSynth] = useState(null);
 
+  const [audioElements, setAudioElements] = useState([]);
+  const audioRefs = useRef([]);
+
+  const [mutedStates, setMutedStates] = useState([])
+
   const { subgenre } = useParams();
 
-  // Generate random index
-  const randomIndex = (arr) => {
-    return Math.floor(Math.random() * arr.length);
-  };
-
+  // Requests bass sample from API using the key & scale restraints set by the harmony sample
+  // If no sample in the defined key/scale exists, a random sample is selected
   const getBass = async (subgenre, key_scale, rel_key_scale) => {
     try {
       const bassQuery = `?type=bass&subgenre=${subgenre}&key_scale=${key_scale}&rel_key_scale=${rel_key_scale}`;
@@ -65,6 +69,8 @@ const Set = () => {
     }
   };
 
+  // Requests synth sample from API using the key & scale restraints set by the harmony sample
+  // If no sample in the defined key/scale exists, a random sample is selected
   const getSynth = async (subgenre, key_scale, rel_key_scale) => {
     try {
       const synthQuery = `?type=synth&subgenre=${subgenre}&key_scale=${key_scale}&rel_key_scale=${rel_key_scale}`;
@@ -104,6 +110,7 @@ const Set = () => {
     }
   };
 
+  // Requests intial sounds from API and sets into state.
   const getInitialSounds = async () => {
     try {
       // DRUMS
@@ -138,10 +145,56 @@ const Set = () => {
     }
   };
 
+  // Re-render page based on the subgenre param
   useEffect(() => {
     getInitialSounds();
   }, [subgenre]);
 
+  // Update the audio ref when the component is rendered
+  useEffect(() => {
+    setAudioElements(audioRefs.current);
+    setMutedStates(new Array(audioRefs.current.length).fill(false));
+
+  },[]);
+
+  const handlePlayClick = () => {
+    audioElements.forEach((audio) => {
+      audio.play();
+    });
+  };
+
+  const handleStopClick = () => {
+    audioElements.forEach((audio) => {
+      audio.pause();
+    });
+  };
+
+  const handleResetClick = () => {
+    audioElements.forEach((audio) => {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.play();
+    });
+  };
+
+  const handleMuteClick = (index) => {
+    const audio = audioElements[index];
+    const currentMutedStates = [...mutedStates];
+    currentMutedStates[index] = !currentMutedStates[index];
+    setMutedStates(currentMutedStates);
+    
+    if (currentMutedStates[index]) {
+      audio.volume = 0;
+    } else {
+      audio.volume = 1;
+    }
+  };
+    
+  const handleAudioRef = (index, ref) => {
+    audioRefs.current[index] = ref;
+  };
+
+  // Loading element while any sound state is null
   if (!drums || !harmony || !bass || !synth) {
     return <Loading />;
   }
@@ -149,7 +202,7 @@ const Set = () => {
   return (
     <main>
       <section className="set">
-        <article className="sound sound--1">
+        <article className="sound sound--1" onClick={() => handleMuteClick(0)}>
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -159,9 +212,15 @@ const Set = () => {
             <h2 className="sound__type">{drums.type.toUpperCase()}</h2>
             <h3 className="sound__name">{splitOnUnderscore(drums.name)}</h3>
           </div>
-          <audio src={drums.url} loop preload="auto" autoPlay></audio>
+          <audio
+            ref={(ref) => handleAudioRef(0, ref)}
+            src={drums.url}
+            loop
+            preload="auto"
+            autoPlay
+          ></audio>
         </article>
-        <article className="sound sound--2">
+        <article className="sound sound--2" onClick={() => handleMuteClick(1)}>
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -172,14 +231,14 @@ const Set = () => {
             <h3 className="sound__name">{splitOnUnderscore(harmony.name)}</h3>
           </div>
           <audio
+            ref={(ref) => handleAudioRef(1, ref)}
             src={harmony.url}
-            controls
             loop
             preload="auto"
             autoPlay
           ></audio>
         </article>
-        <article className="sound sound--3">
+        <article className="sound sound--3" onClick={() => handleMuteClick(2)}>
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -189,9 +248,15 @@ const Set = () => {
             <h2 className="sound__type">{bass.type.toUpperCase()}</h2>
             <h3 className="sound__name">{splitOnUnderscore(bass.name)}</h3>
           </div>
-          <audio src={bass.url} controls loop preload="auto" autoPlay></audio>
+          <audio
+            ref={(ref) => handleAudioRef(2, ref)}
+            src={bass.url}
+            loop
+            preload="auto"
+            autoPlay
+          ></audio>
         </article>
-        <article className="sound sound--4">
+        <article className="sound sound--4" onClick={() => handleMuteClick(3)}>
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -201,7 +266,13 @@ const Set = () => {
             <h2 className="sound__type">{synth.type.toUpperCase()}</h2>
             <h3 className="sound__name">{splitOnUnderscore(synth.name)}</h3>
           </div>
-          <audio src={synth.url} controls loop preload="auto" autoPlay></audio>
+          <audio
+            ref={(ref) => handleAudioRef(3, ref)}
+            src={synth.url}
+            loop
+            preload="auto"
+            autoPlay
+          ></audio>
         </article>
         <article className="sound sound--add">
           <img className="sound__add-icon" src={addSound} alt="plus icon" />
@@ -211,28 +282,38 @@ const Set = () => {
             <img
               className="controls__icon controls__icon--secondary"
               src={shuffleBtn}
-              alt=""
+              alt="shuffle icon"
+            />
+          </div>
+          <div className="controls__icon-container">
+            <img
+              className="controls__icon controls__icon--primary"
+              src={resetBtn}
+              alt="reset audio icon"
+              onClick={handleResetClick}
             />
           </div>
           <div className="controls__icon-container">
             <img
               className="controls__icon controls__icon--primary"
               src={playBtn}
-              alt=""
+              alt="play audio icon"
+              onClick={handlePlayClick}
             />
           </div>
           <div className="controls__icon-container">
             <img
               className="controls__icon controls__icon--primary"
               src={stopBtn}
-              alt=""
+              alt="stop audio icon"
+              onClick={handleStopClick}
             />
           </div>
           <div className="controls__icon-container">
             <img
               className="controls__icon controls__icon--secondary"
               src={saveBtn}
-              alt=""
+              alt="save set icon"
             />
           </div>
         </div>
