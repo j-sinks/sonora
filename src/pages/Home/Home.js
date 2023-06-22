@@ -9,34 +9,64 @@ const Home = () => {
   const [sounds, setSounds] = useState(null);
   const [subgenres, setSubgenres] = useState(null);
 
-  // const [instruments, setInstruments] = useState([]);
-  // const openai = new OpenAI(`${process.env.REACT_APP_OPENAI_API_KEY}`);
-  // const genre = "deep house";
+  const [instruments, setInstruments] = useState([]);
+  const selectedGenre = "trance";
 
-  // const getInstrumentsByGenre = async () => {
-  //   const prompt = `What instruments define ${genre} genre of music? 
-  //   Please give me a general overview in terms of instrument type 
-  //   (i.e. drums, bass, synth, vocals etc.). I am interested in all 
-  //   instrument types from traditional to modern. Please consider only 
-  //   the genre or sub-genre of music requested. Based on this please 
-  //   generate an array of strings which include the instruments, 
-  //   sorted in order of importance. Only provide the instrument type 
-  //   without any additional information. Please don't provide any summary text.`;
-  //   const response = await openai.complete({
-  //     engine: "davinci",
-  //     prompt: prompt,
-  //     maxTokens: 50,
-  //     n: 1,
-  //     stop: "\n",
+  const prompt = `What instruments define ${selectedGenre} music? I am interested /
+  in all instrument types from traditional to modern. Consider only the genre or /
+  sub-genre of music requested. Based on this generate an array of strings which /
+  include the instruments, sorted in order of importance. Only provide the instrument /
+  type without any additional information. Please don't provide any summary text. /
+  Use the following format: ["instrument1", "instrument2", "instrument3"]`;
+
+  // const getInstrumentsByGenre = (input) => {
+  //   const client = axios.create({
+  //     headers: {
+  //       Authorization: "Bearer " + process.env.REACT_APP_OPENAI_API_KEY,
+  //     },
   //   });
-
-  //   const instruments = response.data.choices[0].text.trim().split("\n");
-  //   setInstruments(instruments);
-  //   console.log(instruments);
+  //   let params = {
+  //     prompt: input,
+  //     model: "text-davinci-002",
+  //     max_tokens: 50,
+  //     temperature: 0.1,
+  //   };
+  //   client
+  //     .post(process.env.REACT_APP_OPENAI_API_URL_A, params)
+  //     .then((response) => {
+  //       setInstruments(response.data.choices[0].text);
+  //       console.log(instruments);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
   // };
 
+  const getInstrumentsByGenre = (input) => {
+    const client = axios.create({
+      headers: {
+        Authorization: "Bearer " + process.env.REACT_APP_OPENAI_API_KEY,
+      },
+    });
+    let params = {
+      model: "gpt-3.5-turbo",
+      messages: [{"role": "user", "content": input}],
+      max_tokens: 100,
+      temperature: 0,
+    };
+    client
+      .post(process.env.REACT_APP_OPENAI_API_URL_B, params)
+      .then((response) => {
+        setInstruments(response.data.choices[0].message.content);
+        console.log(response.data.choices[0].message.content);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   // useEffect(() => {
-  //   getInstrumentsByGenre();
+  //   getInstrumentsByGenre(prompt);
   // }, []);
 
   // Retrieve all sounds from database
