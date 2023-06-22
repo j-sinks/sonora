@@ -41,7 +41,7 @@ const Sets = () => {
           <SetCard key={userSet.id} setInfo={userSet} />
         ))}
       </section>
-      <Link className="sets__link">
+      <Link className="sets__link" to="/">
         <h2 className="sets__link-title">+ Create Set</h2>
       </Link>
     </main>
