@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Home.scss";
@@ -11,6 +12,15 @@ const Home = ({ handleSelectedGenre }) => {
   
   const [sounds, setSounds] = useState(null);
   const [subgenres, setSubgenres] = useState(null);
+
+  const navigate = useNavigate();
+
+  // Allows for buffer to await the model's response before navigating to set
+  const redirectAfter = (timer) => {
+    setTimeout(() => {
+      navigate("set");
+    }, timer);
+  }
 
   // Updates form state based on user input
   // Also updates state so validation knows the form has been interacted with
@@ -41,6 +51,8 @@ const Home = ({ handleSelectedGenre }) => {
     handleSelectedGenre(input);
     setInput("");
     setInputIsTouched(false);
+
+    redirectAfter(5000);
   };
 
   // Retrieve all sounds from database

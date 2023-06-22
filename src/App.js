@@ -5,6 +5,7 @@ import './App.scss';
 import Header from "./components/Header/Header";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
+import SetAI from "./pages/SetAI/SetAI";
 import Set from "./pages/Set/Set";
 import Profile from "./pages/Profile/Profile";
 import Sets from "./pages/Sets/Sets";
@@ -90,6 +91,7 @@ function App() {
     }
 
     getInstrumentsByGenre(prompt);
+    console.log(instruments[0]);
   }, [selectedGenre]);
 
   return (
@@ -100,6 +102,7 @@ function App() {
             <Route path="/register" element={<Register />}  />
             <Route path="/" element={<Home handleSelectedGenre={handleSelectedGenre} />}  />
             <Route path="home" element={<Navigate to="/" />} />
+            <Route path="set" element={<SetAI instruments={instruments} />}  />
             <Route path="set/:subgenre" element={<Set />}  />
             <Route path="profile/:userId" element={<Profile />}  />
             <Route path="profile/:userId/sets" element={<Sets />}  />
