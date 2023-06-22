@@ -1,0 +1,45 @@
+@use "../../styles/partials/typography";
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.set-card {
+  @include flex(column, center, null);
+  background-color: $primary-color-1;
+  height: 10vh;
+  width: 100%;
+  border-bottom: 0.2rem solid $primary-color-6;
+  padding-left: 6.4rem;
+  cursor: pointer;
+  position: relative;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: $primary-color-5;
+  }
+
+  &:hover .genre__title {
+    color: $primary-color-2;
+  } 
+
+  &:hover .genre__subtitle {
+    color: $primary-color-3;
+  } 
+
+  &__subtitle {
+    color: $primary-color-4;
+  }
+}
+
+.play-icon {
+  position: absolute;
+  top: 40%;
+  left: 1.6rem;
+}
+
+.more-button {
+  position: absolute;
+  top: 40%;
+  right: 1.6rem;
+  background: transparent;
+  border: none;
+}
