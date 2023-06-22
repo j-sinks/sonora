@@ -1,73 +1,47 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import { OpenAI } from "openai";
 import "./Home.scss";
 import Loading from "../../components/Loading/Loading";
 import GenreCard from "../../components/GenreCard/GenreCard";
+import playBtn from "../../assets/images/icons/play-button.svg";
 
-const Home = () => {
+const Home = ({ handleSelectedGenre }) => {
+  const [input, setInput] = useState("");
+  const [inputIsTouched, setInputIsTouched] = useState(false);
+  
   const [sounds, setSounds] = useState(null);
   const [subgenres, setSubgenres] = useState(null);
 
-  const [instruments, setInstruments] = useState([]);
-  const selectedGenre = "trance";
-
-  const prompt = `What instruments define ${selectedGenre} music? I am interested /
-  in all instrument types from traditional to modern. Consider only the genre or /
-  sub-genre of music requested. Based on this generate an array of strings which /
-  include the instruments, sorted in order of importance. Only provide the instrument /
-  type without any additional information. Please don't provide any summary text. /
-  Use the following format: ["instrument1", "instrument2", "instrument3"]`;
-
-  // const getInstrumentsByGenre = (input) => {
-  //   const client = axios.create({
-  //     headers: {
-  //       Authorization: "Bearer " + process.env.REACT_APP_OPENAI_API_KEY,
-  //     },
-  //   });
-  //   let params = {
-  //     prompt: input,
-  //     model: "text-davinci-002",
-  //     max_tokens: 50,
-  //     temperature: 0.1,
-  //   };
-  //   client
-  //     .post(process.env.REACT_APP_OPENAI_API_URL_A, params)
-  //     .then((response) => {
-  //       setInstruments(response.data.choices[0].text);
-  //       console.log(instruments);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  const getInstrumentsByGenre = (input) => {
-    const client = axios.create({
-      headers: {
-        Authorization: "Bearer " + process.env.REACT_APP_OPENAI_API_KEY,
-      },
-    });
-    let params = {
-      model: "gpt-3.5-turbo",
-      messages: [{"role": "user", "content": input}],
-      max_tokens: 100,
-      temperature: 0,
-    };
-    client
-      .post(process.env.REACT_APP_OPENAI_API_URL_B, params)
-      .then((response) => {
-        setInstruments(response.data.choices[0].message.content);
-        console.log(response.data.choices[0].message.content);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+  // Updates form state based on user input
+  // Also updates state so validation knows the form has been interacted with
+  const handleChangeInput = (event) => {
+    setInput(event.target.value);
+    setInputIsTouched(true);
   };
 
-  // useEffect(() => {
-  //   getInstrumentsByGenre(prompt);
-  // }, []);
+  // Check the input is not empty
+  const isFormValid = () => {
+    if (!input) {
+      return false;
+    }
+
+    return true;
+  };
+
+  // Handles the form submit
+  // Prompt state in App.js is also updated which queries the model 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setInputIsTouched(true);
+
+    if (!isFormValid()) {
+      return;
+    }
+
+    handleSelectedGenre(input);
+    setInput("");
+    setInputIsTouched(false);
+  };
 
   // Retrieve all sounds from database
   const getSounds = async () => {
@@ -85,9 +59,9 @@ const Home = () => {
     }
   };
 
-  // Takes the sounds state and created a new array inlcuding a subset of the data
+  // Uses the sounds state to create a new array which is a subset of the data
   // Following this, a new array is created containing only unique subgenre values
-  // The resulting array is then used to set state
+  // The resulting array is then used to generate genre card components
   const getSubgenres = (sounds) => {
     const genreInfo = sounds.map((sound) => ({
       id: crypto.randomUUID(),
@@ -107,22 +81,53 @@ const Home = () => {
     setSubgenres(uniqueSubgenres);
   };
 
+  // Retrieves the sounds on mount
   useEffect(() => {
     getSounds();
   }, []);
 
+  // Returns loading component before data has been retrieved
   if (!sounds || !subgenres) {
     return <Loading />;
   }
 
   return (
     <main className="home">
-      <h1 className="home__title">Select Genre</h1>
-      <div className="home__genres-container">
-        {subgenres.map((subgenre) => (
-          <GenreCard key={subgenre.id} genreInfo={subgenre} />
-        ))}
-      </div>
+      <h1 className="home__title">Generate Set</h1>
+      <section className="prompt">
+        <form
+          className="prompt__form"
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <label className="prompt__label" htmlFor="prompt">
+            What genre of music would you like to create?
+          </label>
+          <input
+            className="prompt__input"
+            type="text"
+            name="prompt"
+            placeholder="🎲  Type a genre here..."
+            onChange={handleChangeInput}
+            value={input}
+          />
+          {inputIsTouched && !isFormValid() && (
+                <small className="prompt__error">Genre is required</small>
+              )}
+          <button className="prompt__button">
+            <img src={playBtn} alt="play button" />
+          </button>
+        </form>
+      </section>
+      <section className="genres">
+        <h2 className="genres__title">Select Genre</h2>
+        <div className="genres__container">
+          {subgenres.map((subgenre) => (
+            <GenreCard key={subgenre.id} genreInfo={subgenre} />
+          ))}
+        </div>
+      </section>
     </main>
   );
 };

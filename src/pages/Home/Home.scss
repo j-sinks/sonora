@@ -7,8 +7,73 @@
   &__title {
     margin: 2.4rem 0;
   }
+}
 
-  &__genres-container {
+.prompt {
+
+  &__form {
+    @include flex(column, space-between, center);
+    height: 25vh;
+    max-height: 25rem;
+    border: 0.2rem solid $primary-color-6;
+    border-radius: 0.5rem;
+    padding: 1.6rem;
+    position: relative;
+
+    &:hover {
+      background-color: $primary-color-5;
+    }
+  }
+
+  &__label {
+    text-align: center;
+  }
+
+  &__input {
+    width: 67%;
+    height: 3.2rem;
+    border-radius: 2.5rem;
+    text-align: center;
+    border: 0.2rem solid $primary-color-6;
+    color: $primary-color-5;
+
+    &::placeholder {
+      text-align: center;
+    }
+
+    &:focus {
+      border: 0.2rem solid $primary-color-4;
+    }
+
+    &:focus-visible {
+      border: 0.2rem solid $primary-color-4;
+    }
+  }
+
+  &__error {
+    color: $primary-color-3;
+    position: absolute;
+    top: 13rem;
+  }
+
+  &__button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.genres {
+
+  &__title {
+    margin: 2.4rem 0 1.6rem 0;
+  }
+
+  &__container {
     @include flex(row, space-between, null);
     flex-wrap: wrap;  }
 }
