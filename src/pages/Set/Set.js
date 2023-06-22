@@ -24,7 +24,7 @@ const Set = () => {
   const [audioElements, setAudioElements] = useState([]);
   const audioRefs = useRef([]);
 
-  const [mutedStates, setMutedStates] = useState([])
+  const [mutedStates, setMutedStates] = useState([]);
 
   const { subgenre } = useParams();
 
@@ -144,6 +144,10 @@ const Set = () => {
       );
     }
   };
+
+  const handleShuffleClick = () => {
+    getInitialSounds();
+  }
 
   // Re-render page based on the subgenre param
   useEffect(() => {
@@ -283,6 +287,7 @@ const Set = () => {
               className="controls__icon controls__icon--secondary"
               src={shuffleBtn}
               alt="shuffle icon"
+              onClick={handleShuffleClick}
             />
           </div>
           <div className="controls__icon-container">
