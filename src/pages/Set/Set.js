@@ -12,6 +12,7 @@ import playBtn from "../../assets/images/icons/play-button.svg";
 import stopBtn from "../../assets/images/icons/stop-button.svg";
 import resetBtn from "../../assets/images/icons//reset-button.svg";
 import saveBtn from "../../assets/images/icons/save-white.svg";
+import SaveSet from "../../components/SaveSet/SaveSet";
 
 const Set = () => {
   // Crete 4 GET requests to retrieve sounds based on params (useParams)
@@ -25,6 +26,8 @@ const Set = () => {
   const audioRefs = useRef([]);
 
   const [mutedStates, setMutedStates] = useState([]);
+
+  const [saveModalClass, setSaveModalClass] = useState("");
 
   const { subgenre } = useParams();
 
@@ -147,7 +150,7 @@ const Set = () => {
 
   const handleShuffleClick = () => {
     getInitialSounds();
-  }
+  };
 
   // Re-render page based on the subgenre param
   useEffect(() => {
@@ -158,8 +161,7 @@ const Set = () => {
   useEffect(() => {
     setAudioElements(audioRefs.current);
     setMutedStates(new Array(audioRefs.current.length).fill(false));
-
-  },[]);
+  }, []);
 
   const handlePlayClick = () => {
     audioElements.forEach((audio) => {
@@ -186,16 +188,24 @@ const Set = () => {
     const currentMutedStates = [...mutedStates];
     currentMutedStates[index] = !currentMutedStates[index];
     setMutedStates(currentMutedStates);
-    
+
     if (currentMutedStates[index]) {
       audio.volume = 0;
     } else {
       audio.volume = 1;
     }
   };
-    
+
   const handleAudioRef = (index, ref) => {
     audioRefs.current[index] = ref;
+  };
+
+  const handleSaveClick = () => {
+    setSaveModalClass("save-set--display");
+  };
+
+  const resetSaveModalClass = () => {
+    setSaveModalClass("");
   };
 
   // Loading element while any sound state is null
@@ -319,10 +329,15 @@ const Set = () => {
               className="controls__icon controls__icon--secondary"
               src={saveBtn}
               alt="save set icon"
+              onClick={handleSaveClick}
             />
           </div>
         </div>
       </section>
+      <SaveSet
+        saveModalClass={saveModalClass}
+        resetSaveModalClass={resetSaveModalClass}
+      />
     </main>
   );
 };

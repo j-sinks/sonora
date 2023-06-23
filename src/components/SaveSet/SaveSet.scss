@@ -1,0 +1,53 @@
+@use "../../styles/partials/typography";
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.save-set {
+  display: none;
+
+  &--display {
+    @include flex(column, center, center);
+    position: fixed;
+    top: 40vh;
+    left: 10vw;
+    height: 20vh;
+    width: 80vw;
+    background-color: $primary-color-2;
+    border-radius: 0.5rem;
+    margin: 0 auto;
+    z-index: 1;
+    padding: 1.6rem;
+  }
+
+  &__form {
+    @include flex(column, center, center);
+    height: 100%;
+    width: 80%;
+  }
+
+  &__input {
+    @include sonora-input;
+    margin: 1.6rem 0;
+  }
+
+  &__btn-container {
+    @include flex(row, space-between, null);
+    width: 100%;
+    gap: 1.6rem;
+  }
+
+  &__btn {
+    @include sonora-btn;
+    width: 50%;
+
+    &--cancel {
+      background-color: $primary-color-4;
+      color: $primary-color-3;
+    }
+
+    &--save {
+      background-color: $primary-color-3;
+      color: $primary-color-1;
+    }
+  }
+}
