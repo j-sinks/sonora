@@ -14,7 +14,7 @@ import Error from "./pages/Error/Error";
 import Footer from "./components/Footer/Footer";
 
 function App() {
-  const [instruments, setInstruments] = useState([]);
+  const [genreData, setGenreData] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState([]);
 
   const isFirstRender = useRef(true);
@@ -28,9 +28,14 @@ function App() {
   const prompt = `What instruments define ${selectedGenre} music? I am interested /
   in all instrument types from traditional to modern. Consider only the genre or /
   sub-genre of music requested. Based on this generate an array of strings which /
-  include the instruments, sorted in order of importance. Only provide the instrument /
+  include the instruments, sorted in order of importance. I am also interesting in /
+  the tempo range for the specified genre in terms of BPM.  Only provide the instrument /
   type without any additional information. Please don't provide any summary text. /
-  Use the following format: ["instrument1", "instrument2", "instrument3"]`;
+  Provide this in JSON format: /
+  {
+    "instruments": ["instrument1", "instrument2", "instrument3"], /
+    "bpm": "120 TO 125" /
+  } `;
 
   // Prompt function for davinci-002 model
   // const getInstrumentsByGenre = (input) => {
@@ -66,14 +71,15 @@ function App() {
     let params = {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: input }],
-      max_tokens: 100,
+      max_tokens: 100, 
       temperature: 0,
     };
     client
       .post(process.env.REACT_APP_OPENAI_API_URL_B, params)
       .then((response) => {
-        setInstruments(response.data.choices[0].message.content);
-        console.log(response.data.choices[0].message.content);
+        const responseJSON = response.data.choices[0].message.content;
+        const responseObj = JSON.parse(responseJSON);
+        setGenreData(responseObj);
       })
       .catch((error) => {
         console.log(error.message);
@@ -91,7 +97,6 @@ function App() {
     }
 
     getInstrumentsByGenre(prompt);
-    console.log(instruments[0]);
   }, [selectedGenre]);
 
   return (
@@ -102,7 +107,7 @@ function App() {
             <Route path="/register" element={<Register />}  />
             <Route path="/" element={<Home handleSelectedGenre={handleSelectedGenre} />}  />
             <Route path="home" element={<Navigate to="/" />} />
-            <Route path="set" element={<SetAI instruments={instruments} />}  />
+            <Route path="set" element={<SetAI genreData={genreData} />}  />
             <Route path="set/:subgenre" element={<Set />}  />
             <Route path="profile/:userId" element={<Profile />}  />
             <Route path="profile/:userId/sets" element={<Sets />}  />

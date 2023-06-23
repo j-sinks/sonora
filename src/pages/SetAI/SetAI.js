@@ -13,7 +13,10 @@ import stopBtn from "../../assets/images/icons/stop-button.svg";
 import resetBtn from "../../assets/images/icons//reset-button.svg";
 import saveBtn from "../../assets/images/icons/save-white.svg";
 
-const SetAI = ({ instruments }) => {
+const SetAI = ({ genreData }) => {
+  const { instruments, bpm } = genreData;
+  // console.log(genreData);
+
   const [sound1, setSound1] = useState(null);
   const [sound2, setSound2] = useState(null);
   const [sound3, setSound3] = useState(null);
@@ -110,19 +113,27 @@ const SetAI = ({ instruments }) => {
 
   // Requests intial sounds from API and sets into state.
   const getInitialSounds = async () => {
+    const pageSize = "page_size=50";
+    const duration = "duration:[5.0 TO 60.0]";
+    const tonality = 'ac_tonality:"C minor"';
+    const tempo = `ac_tempo:[${bpm}]`;
+
     try {
       // SOUND 1
 
       const sound1InitialResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[0]}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[0]}&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
-      console.log(sound1InitialResponse);
+      // console.log(sound1InitialResponse);
 
-      const randomId1 = sound1InitialResponse.data.results[randomIndex(sound1InitialResponse.data.results)]
+      const randomId1 =
+        sound1InitialResponse.data.results[
+          randomIndex(sound1InitialResponse.data.results)
+        ].id;
 
       const sound1FinalResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/sounds/${randomId1}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/sounds/${randomId1}/?token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
       setSound1(sound1FinalResponse.data);
@@ -130,13 +141,16 @@ const SetAI = ({ instruments }) => {
       // SOUND 2
 
       const sound2InitialResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[1]}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[1]}&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
-      const randomId2 = sound2InitialResponse.data.results[randomIndex(sound2InitialResponse.data.results)]
+      const randomId2 =
+        sound2InitialResponse.data.results[
+          randomIndex(sound2InitialResponse.data.results)
+        ].id;
 
       const sound2FinalResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/sounds/${randomId2}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/sounds/${randomId2}/?token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
       setSound2(sound2FinalResponse.data);
@@ -144,31 +158,37 @@ const SetAI = ({ instruments }) => {
       // SOUND 3
 
       const sound3InitialResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[2]}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[2]}&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
-      const randomId3 = sound3InitialResponse.data.results[randomIndex(sound3InitialResponse.data.results)]
+      const randomId3 =
+        sound3InitialResponse.data.results[
+          randomIndex(sound3InitialResponse.data.results)
+        ].id;
 
       const sound3FinalResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/sounds/${randomId3}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/sounds/${randomId3}/?token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
       setSound3(sound3FinalResponse.data);
 
-      // SOUND 4
-      
+      // SOUND 4  
+
       const sound4InitialResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[3]}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[3]}&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
-      const randomId4 = sound4InitialResponse.data.results[randomIndex(sound4InitialResponse.data.results)]
+      const randomId4 =
+        sound4InitialResponse.data.results[
+          randomIndex(sound4InitialResponse.data.results)
+        ].id;
 
       const sound4FinalResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/sounds/${randomId4}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/sounds/${randomId4}/?token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
       setSound4(sound4FinalResponse.data);
-      
+
     } catch (error) {
       console.log(error.message);
     }
@@ -176,7 +196,7 @@ const SetAI = ({ instruments }) => {
 
   const handleShuffleClick = () => {
     getInitialSounds();
-  }
+  };
 
   // Re-render page based on the subgenre param
   useEffect(() => {
@@ -187,8 +207,7 @@ const SetAI = ({ instruments }) => {
   useEffect(() => {
     setAudioElements(audioRefs.current);
     setMutedStates(new Array(audioRefs.current.length).fill(false));
-
-  },[]);
+  }, []);
 
   const handlePlayClick = () => {
     audioElements.forEach((audio) => {
@@ -215,14 +234,14 @@ const SetAI = ({ instruments }) => {
     const currentMutedStates = [...mutedStates];
     currentMutedStates[index] = !currentMutedStates[index];
     setMutedStates(currentMutedStates);
-    
+
     if (currentMutedStates[index]) {
       audio.volume = 0;
     } else {
       audio.volume = 1;
     }
   };
-    
+
   const handleAudioRef = (index, ref) => {
     audioRefs.current[index] = ref;
   };
@@ -242,7 +261,7 @@ const SetAI = ({ instruments }) => {
             alt="more info icon"
           />
           <div className="sound__info-container">
-            <h2 className="sound__type">{sound1.tags[0].toUpperCase()}</h2>
+            <h2 className="sound__type">SOUND 1</h2>
             <h3 className="sound__name">{splitOnUnderscore(sound1.name)}</h3>
           </div>
           <audio
@@ -260,7 +279,7 @@ const SetAI = ({ instruments }) => {
             alt="more info icon"
           />
           <div className="sound__info-container">
-            <h2 className="sound__type">{sound1.tags[0].toUpperCase()}</h2>
+            <h2 className="sound__type">SOUND 2</h2>
             <h3 className="sound__name">{splitOnUnderscore(sound2.name)}</h3>
           </div>
           <audio
@@ -278,7 +297,7 @@ const SetAI = ({ instruments }) => {
             alt="more info icon"
           />
           <div className="sound__info-container">
-            <h2 className="sound__type">{sound1.tags[0].toUpperCase()}</h2>
+            <h2 className="sound__type">SOUND 3</h2>
             <h3 className="sound__name">{splitOnUnderscore(sound3.name)}</h3>
           </div>
           <audio
@@ -296,7 +315,7 @@ const SetAI = ({ instruments }) => {
             alt="more info icon"
           />
           <div className="sound__info-container">
-            <h2 className="sound__type">{sound4.tag[0].toUpperCase()}</h2>
+            <h2 className="sound__type">SOUND 4</h2>
             <h3 className="sound__name">{splitOnUnderscore(sound4.name)}</h3>
           </div>
           <audio

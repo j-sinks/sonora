@@ -13,16 +13,18 @@
 
   &__form {
     @include flex(column, space-between, center);
-    height: 25vh;
+    height: 30vh;
     max-height: 25rem;
-    border: 0.2rem solid $primary-color-6;
+    // border: 0.2rem solid $primary-color-6;
+    background-color: $primary-color-5;
     border-radius: 0.5rem;
-    padding: 1.6rem;
+    padding: 3.2rem 1.6rem;
     position: relative;
 
-    &:hover {
-      background-color: $primary-color-5;
-    }
+    // &:hover {
+    //   background-color: $primary-color-4;
+    //   border: 0.2rem solid $primary-color-6;
+    // }
   }
 
   &__label {
@@ -42,10 +44,7 @@
     }
 
     &:focus {
-      border: 0.2rem solid $primary-color-4;
-    }
-
-    &:focus-visible {
+      outline: none;
       border: 0.2rem solid $primary-color-4;
     }
   }
