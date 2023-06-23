@@ -122,7 +122,7 @@ const SetAI = ({ genreData }) => {
       // SOUND 1
 
       const sound1InitialResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[0]}&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/search/text/?query="${instruments[0]}"&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
       // console.log(sound1InitialResponse);
@@ -141,7 +141,7 @@ const SetAI = ({ genreData }) => {
       // SOUND 2
 
       const sound2InitialResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[1]}&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/search/text/?query="${instruments[1]}"&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
       const randomId2 =
@@ -158,7 +158,7 @@ const SetAI = ({ genreData }) => {
       // SOUND 3
 
       const sound3InitialResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[2]}&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/search/text/?query="${instruments[2]}"&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
       const randomId3 =
@@ -175,7 +175,7 @@ const SetAI = ({ genreData }) => {
       // SOUND 4  
 
       const sound4InitialResponse = await axios.get(
-        `${process.env.REACT_APP_FS_API_URL}/search/text/?query=${instruments[3]}&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
+        `${process.env.REACT_APP_FS_API_URL}/search/text/?query="${instruments[3]}"&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
 
       const randomId4 =

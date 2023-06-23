@@ -52,7 +52,7 @@ const Home = ({ handleSelectedGenre }) => {
     setInput("");
     setInputIsTouched(false);
 
-    redirectAfter(5000);
+    redirectAfter(10000);
   };
 
   // Retrieve all sounds from database
