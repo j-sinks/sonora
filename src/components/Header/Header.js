@@ -1,17 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.scss";
 import backBtn from "../../assets/images/icons/chevron-left-white.svg";
 import logo from "../../assets/images/logos/sonora.jpeg";
 import profilebtn from "../../assets/images/icons/userwhite.svg";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1)
+  }
+
   return (
     <header className="header">
       <nav className="header__nav">
       <div className="header__nav-container header__nav-container--left">
-        <Link to="/">
-          <img className="nav-icon" src={backBtn} alt="back icon" />
-        </Link>
+        <img className="nav-icon" src={backBtn} alt="back icon" onClick={handleBackClick}/>
       </div>
       <div className="header__nav-container header__nav-container--center">
         <Link to="/">

@@ -1,16 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
-import "./SaveSet.scss";
+import "./EditSet.scss";
 
-const SaveSet = ({
-  subgenre,
-  drumsId,
-  harmonyId,
-  bassId,
-  synthId,
-  saveModalClass,
-  resetSaveModalClass,
-}) => {
+const EditSet = ({ userId, setId, editModalClass, resetEditModalClass }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const [input, setInput] = useState("");
@@ -32,16 +24,13 @@ const SaveSet = ({
     return true;
   };
 
-  // Save set
-  const saveSet = async () => {
+  // Update set name
+  const editSet = async () => {
     try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/profile/${process.env.REACT_APP_USER_ID}/sets`,
+      await axios.patch(
+        `${process.env.REACT_APP_API_URL}/profile/${userId}/sets/${setId}`,
         {
-          user_id: `${process.env.REACT_APP_USER_ID}`,
           name: input,
-          genre: subgenre,
-          sounds: [drumsId, harmonyId, bassId, synthId],
         }
       );
     } catch (error) {
@@ -53,34 +42,34 @@ const SaveSet = ({
   // Resets state in component & parent to allow for re-clicking
   const handleCancelClick = () => {
     setIsVisible(true);
-    resetSaveModalClass();
+    resetEditModalClass();
     setIsVisible(false);
   };
 
-  // Allows for the functionality outlined above, plus saves the current set
-  const handleSaveSubmit = (event) => {
+  // Allows for the functionality outlined above, plus updates selected set
+  const handleEditSubmit = (event) => {
     setInputIsTouched(true);
 
     if (!isFormValid()) {
       return;
     }
 
-    saveSet();
+    editSet();
     setInput("");
     setInputIsTouched(false);
     setIsVisible(true);
-    resetSaveModalClass();
+    resetEditModalClass();
     setIsVisible(false);
   };
 
   return (
-    <article className={!isVisible ? `save-set ${saveModalClass}` : "save-set"}>
-      <form className="save-set__form" noValidate autoComplete="off">
-        <label className="save-set__label" htmlFor="name">
-          Name Set
+    <article className={!isVisible ? `edit-set ${editModalClass}` : "edit-set"}>
+      <form className="edit-set__form" noValidate autoComplete="off">
+        <label className="edit-set__label" htmlFor="name">
+          Rename Set
         </label>
         <input
-          className="save-set__input"
+          className="edit-set__input"
           type="text"
           name="name"
           placeholder="Add set name"
@@ -88,18 +77,18 @@ const SaveSet = ({
           value={input}
         />
         {inputIsTouched && !isFormValid() && (
-          <small className="save-set__error">Set name is required</small>
+          <small className="edit-set__error">Set name is required</small>
         )}
-        <div className="save-set__btn-container">
+        <div className="edit-set__btn-container">
           <button
-            className="save-set__btn save-set__btn--cancel"
+            className="edit-set__btn edit-set__btn--cancel"
             onClick={handleCancelClick}
           >
             Cancel
           </button>
           <button
-            className="save-set__btn save-set__btn--save"
-            onClick={handleSaveSubmit}
+            className="edit-set__btn edit-set__btn--save"
+            onClick={handleEditSubmit}
           >
             Save
           </button>
@@ -109,4 +98,4 @@ const SaveSet = ({
   );
 };
 
-export default SaveSet;
+export default EditSet;

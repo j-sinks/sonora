@@ -1,7 +1,10 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { formattedSubgenre, splitOnUnderscore } from "../../utils/stringFormatting";
+import {
+  formattedSubgenre,
+  splitOnUnderscore,
+} from "../../utils/stringFormatting";
 import { randomIndex } from "../../utils/math";
 import "./Set.scss";
 import Loading from "../../components/Loading/Loading";
@@ -15,8 +18,6 @@ import saveBtn from "../../assets/images/icons/save-white.svg";
 import SaveSet from "../../components/SaveSet/SaveSet";
 
 const Set = () => {
-  // Crete 4 GET requests to retrieve sounds based on params (useParams)
-  // If sound in key does not exist, find one from top level genre
   const [drums, setDrums] = useState(null);
   const [harmony, setHarmony] = useState(null);
   const [bass, setBass] = useState(null);

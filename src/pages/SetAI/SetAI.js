@@ -1,4 +1,3 @@
-import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import {
@@ -19,7 +18,6 @@ import saveBtn from "../../assets/images/icons/save-white.svg";
 
 const SetAI = ({ selectedGenre, genreData }) => {
   const { instruments, bpm } = genreData;
-  // console.log(genreData);
 
   const [sound1, setSound1] = useState(null);
   const [sound2, setSound2] = useState(null);
@@ -31,90 +29,6 @@ const SetAI = ({ selectedGenre, genreData }) => {
 
   const [mutedStates, setMutedStates] = useState([]);
 
-  // const { subgenre } = useParams();
-
-  // Requests bass sample from API using the key & scale restraints set by the harmony sample
-  // If no sample in the defined key/scale exists, a random sample is selected
-  // const getBass = async (subgenre, key_scale, rel_key_scale) => {
-  //   try {
-  //     const bassQuery = `?type=bass&subgenre=${subgenre}&key_scale=${key_scale}&rel_key_scale=${rel_key_scale}`;
-  //     const bassQueryRel = `?type=bass&subgenre=${subgenre}&key_scale=${rel_key_scale}&rel_key_scale=${key_scale}`;
-  //     const bassQueryAny = `?type=bass&subgenre=${subgenre}`;
-
-  //     // Request bass in the same key & scale as the chords
-  //     const bassResponse = await axios.get(
-  //       `${process.env.REACT_APP_API_URL}/sounds${bassQuery}`
-  //     );
-
-  //     // If no match is found, request bass in the same relative key & scale as the chords
-  //     if (bassResponse.data.length === 0) {
-  //       const bassResponseRel = await axios.get(
-  //         `${process.env.REACT_APP_API_URL}/sounds${bassQueryRel}`
-  //       );
-
-  //       setSound3(bassResponseRel.data[randomIndex(bassResponseRel.data)]);
-
-  //       // If no match is found again, request bass in any key & scale
-  //       if (bassResponseRel.data.length === 0) {
-  //         const bassResponseAny = await axios.get(
-  //           `${process.env.REACT_APP_API_URL}/sounds${bassQueryAny}`
-  //         );
-
-  //         setBass(bassResponseAny.data[randomIndex(bassResponseAny.data)]);
-
-  //         return;
-  //       }
-
-  //       setBass(bassResponse.data[randomIndex(bassResponse.data)]);
-  //     }
-  //   } catch (error) {
-  //     console.log(
-  //       `Error ${error.response.status}: ${error.response.data.message}`
-  //     );
-  //   }
-  // };
-
-  // Requests synth sample from API using the key & scale restraints set by the harmony sample
-  // If no sample in the defined key/scale exists, a random sample is selected
-  // const getSynth = async (subgenre, key_scale, rel_key_scale) => {
-  //   try {
-  //     const synthQuery = `?type=synth&subgenre=${subgenre}&key_scale=${key_scale}&rel_key_scale=${rel_key_scale}`;
-  //     const synthQueryRel = `?type=synth&subgenre=${subgenre}&key_scale=${rel_key_scale}&rel_key_scale=${key_scale}`;
-  //     const synthQueryAny = `?type=synth&subgenre=${subgenre}`;
-
-  //     // Request synth in the same key & scale as the chords
-  //     const synthResponse = await axios.get(
-  //       `${process.env.REACT_APP_API_URL}/sounds${synthQuery}`
-  //     );
-
-  //     // If no match is found, request synth in the same relative key & scale as the chords
-  //     if (synthResponse.data.length === 0) {
-  //       const synthResponseRel = await axios.get(
-  //         `${process.env.REACT_APP_API_URL}/sounds${synthQueryRel}`
-  //       );
-
-  //       setSound4(synthResponseRel.data[randomIndex(synthResponseRel.data)]);
-
-  //       // If no match is found again, request synth in any key & scale
-  //       if (synthResponseRel.data.length === 0) {
-  //         const synthResponseAny = await axios.get(
-  //           `${process.env.REACT_APP_API_URL}/sounds${synthQueryAny}`
-  //         );
-
-  //         setSynth(synthResponseAny.data[randomIndex(synthResponseAny.data)]);
-
-  //         return;
-  //       }
-
-  //       setSynth(synthResponse.data[randomIndex(synthResponse.data)]);
-  //     }
-  //   } catch (error) {
-  //     console.log(
-  //       `Error ${error.response.status}: ${error.response.data.message}`
-  //     );
-  //   }
-  // };
-
   // Requests intial sounds from API and sets into state.
   const getInitialSounds = async () => {
     const pageSize = "page_size=50";
@@ -124,12 +38,9 @@ const SetAI = ({ selectedGenre, genreData }) => {
 
     try {
       // SOUND 1
-
       const sound1InitialResponse = await axios.get(
         `${process.env.REACT_APP_FS_API_URL}/search/text/?query="${instruments[0]}"&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
-
-      // console.log(sound1InitialResponse);
 
       const randomId1 =
         sound1InitialResponse.data.results[
@@ -143,7 +54,6 @@ const SetAI = ({ selectedGenre, genreData }) => {
       setSound1(sound1FinalResponse.data);
 
       // SOUND 2
-
       const sound2InitialResponse = await axios.get(
         `${process.env.REACT_APP_FS_API_URL}/search/text/?query="${instruments[1]}"&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
@@ -160,7 +70,6 @@ const SetAI = ({ selectedGenre, genreData }) => {
       setSound2(sound2FinalResponse.data);
 
       // SOUND 3
-
       const sound3InitialResponse = await axios.get(
         `${process.env.REACT_APP_FS_API_URL}/search/text/?query="${instruments[2]}"&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );
@@ -177,7 +86,6 @@ const SetAI = ({ selectedGenre, genreData }) => {
       setSound3(sound3FinalResponse.data);
 
       // SOUND 4
-
       const sound4InitialResponse = await axios.get(
         `${process.env.REACT_APP_FS_API_URL}/search/text/?query="${instruments[3]}"&${pageSize}&filter=${duration}&filter=${tonality}&filter=${tempo}&token=${process.env.REACT_APP_FS_API_KEY}`
       );

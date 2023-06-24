@@ -1,37 +1,31 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { formattedSubgenre, splitOnUnderscore } from "../../utils/stringFormatting";
-import { randomIndex } from "../../utils/math";
+import {
+  formattedSubgenre,
+  splitOnUnderscore,
+} from "../../utils/stringFormatting";
 import "./SetUser.scss";
 import Loading from "../../components/Loading/Loading";
 import moreInfo from "../../assets/images/icons/more-horizontal-black.svg";
 import addSound from "../../assets/images/icons/plus-grey.svg";
-import shuffleBtn from "../../assets/images/icons/ph_shuffle-fill-white.svg";
+import shareBtn from "../../assets/images/icons/upload-white.svg";
 import playBtn from "../../assets/images/icons/play-button.svg";
 import stopBtn from "../../assets/images/icons/stop-button.svg";
 import resetBtn from "../../assets/images/icons//reset-button.svg";
-import saveBtn from "../../assets/images/icons/save-white.svg";
-import SaveSet from "../../components/SaveSet/SaveSet";
+import editBtn from "../../assets/images/icons//edit-white.svg";
+import EditSet from "../../components/EditSet/EditSet";
 
 const SetUser = () => {
-  // Crete 4 GET requests to retrieve sounds based on params (useParams)
-  // If sound in key does not exist, find one from top level genre
   const [savedSounds, setSavedSounds] = useState([]);
   const [setData, setSetData] = useState(null);
-
-
-  const [drums, setDrums] = useState(null);
-  const [harmony, setHarmony] = useState(null);
-  const [bass, setBass] = useState(null);
-  const [synth, setSynth] = useState(null);
 
   const [audioElements, setAudioElements] = useState([]);
   const audioRefs = useRef([]);
 
   const [mutedStates, setMutedStates] = useState([]);
 
-  const [saveModalClass, setSaveModalClass] = useState("");
+  const [editModalClass, setEditModalClass] = useState("");
 
   const { userId, setId } = useParams();
 
@@ -41,7 +35,7 @@ const SetUser = () => {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/profile/${userId}/sets/${setId}`
       );
-      
+
       setSavedSounds(response.data);
     } catch (error) {
       console.log(
@@ -57,7 +51,7 @@ const SetUser = () => {
       );
 
       const sets = response.data;
-      const selectedSet = sets.find(set => set.id == setId);
+      const selectedSet = sets.find((set) => set.id == setId);
 
       setSetData(selectedSet);
     } catch (error) {
@@ -66,127 +60,6 @@ const SetUser = () => {
       );
     }
   };
-
-  // Requests bass sample from API using the key & scale restraints set by the harmony sample
-  // If no sample in the defined key/scale exists, a random sample is selected
-  // const getBass = async (subgenre, key_scale, rel_key_scale) => {
-  //   try {
-  //     const bassQuery = `?type=bass&subgenre=${subgenre}&key_scale=${key_scale}&rel_key_scale=${rel_key_scale}`;
-  //     const bassQueryRel = `?type=bass&subgenre=${subgenre}&key_scale=${rel_key_scale}&rel_key_scale=${key_scale}`;
-  //     const bassQueryAny = `?type=bass&subgenre=${subgenre}`;
-
-  //     // Request bass in the same key & scale as the chords
-  //     const bassResponse = await axios.get(
-  //       `${process.env.REACT_APP_API_URL}/sounds${bassQuery}`
-  //     );
-
-  //     // If no match is found, request bass in the same relative key & scale as the chords
-  //     if (bassResponse.data.length === 0) {
-  //       const bassResponseRel = await axios.get(
-  //         `${process.env.REACT_APP_API_URL}/sounds${bassQueryRel}`
-  //       );
-
-  //       setBass(bassResponseRel.data[randomIndex(bassResponseRel.data)]);
-
-  //       // If no match is found again, request bass in any key & scale
-  //       if (bassResponseRel.data.length === 0) {
-  //         const bassResponseAny = await axios.get(
-  //           `${process.env.REACT_APP_API_URL}/sounds${bassQueryAny}`
-  //         );
-
-  //         setBass(bassResponseAny.data[randomIndex(bassResponseAny.data)]);
-
-  //         return;
-  //       }
-
-  //       setBass(bassResponse.data[randomIndex(bassResponse.data)]);
-  //     }
-  //   } catch (error) {
-  //     console.log(
-  //       `Error ${error.response.status}: ${error.response.data.message}`
-  //     );
-  //   }
-  // };
-
-  // Requests synth sample from API using the key & scale restraints set by the harmony sample
-  // If no sample in the defined key/scale exists, a random sample is selected
-  // const getSynth = async (subgenre, key_scale, rel_key_scale) => {
-  //   try {
-  //     const synthQuery = `?type=synth&subgenre=${subgenre}&key_scale=${key_scale}&rel_key_scale=${rel_key_scale}`;
-  //     const synthQueryRel = `?type=synth&subgenre=${subgenre}&key_scale=${rel_key_scale}&rel_key_scale=${key_scale}`;
-  //     const synthQueryAny = `?type=synth&subgenre=${subgenre}`;
-
-  //     // Request synth in the same key & scale as the chords
-  //     const synthResponse = await axios.get(
-  //       `${process.env.REACT_APP_API_URL}/sounds${synthQuery}`
-  //     );
-
-  //     // If no match is found, request synth in the same relative key & scale as the chords
-  //     if (synthResponse.data.length === 0) {
-  //       const synthResponseRel = await axios.get(
-  //         `${process.env.REACT_APP_API_URL}/sounds${synthQueryRel}`
-  //       );
-
-  //       setSynth(synthResponseRel.data[randomIndex(synthResponseRel.data)]);
-
-  //       // If no match is found again, request synth in any key & scale
-  //       if (synthResponseRel.data.length === 0) {
-  //         const synthResponseAny = await axios.get(
-  //           `${process.env.REACT_APP_API_URL}/sounds${synthQueryAny}`
-  //         );
-
-  //         setSynth(synthResponseAny.data[randomIndex(synthResponseAny.data)]);
-
-  //         return;
-  //       }
-
-  //       setSynth(synthResponse.data[randomIndex(synthResponse.data)]);
-  //     }
-  //   } catch (error) {
-  //     console.log(
-  //       `Error ${error.response.status}: ${error.response.data.message}`
-  //     );
-  //   }
-  // };
-
-  // Requests intial sounds from API and sets into state.
-  // const getInitialSounds = async () => {
-  //   try {
-  //     // DRUMS
-  //     const drumQuery = `?type=drums&subgenre=${subgenre}`;
-
-  //     const drumResponse = await axios.get(
-  //       `${process.env.REACT_APP_API_URL}/sounds${drumQuery}`
-  //     );
-
-  //     setDrums(drumResponse.data[randomIndex(drumResponse.data)]);
-
-  //     // CHORDS, KEYS & PADS
-  //     const harmonyQuery = `?type=harmony&subgenre=${subgenre}`;
-
-  //     const harmonyResponse = await axios.get(
-  //       `${process.env.REACT_APP_API_URL}/sounds${harmonyQuery}`
-  //     );
-
-  //     const { key_scale, rel_key_scale } = harmonyResponse.data;
-
-  //     setHarmony(harmonyResponse.data[randomIndex(harmonyResponse.data)]);
-
-  //     // BASS
-  //     getBass(subgenre, key_scale, rel_key_scale);
-
-  //     // SYNTH
-  //     getSynth(subgenre, key_scale, rel_key_scale);
-  //   } catch (error) {
-  //     console.log(
-  //       `Error ${error.response.status}: ${error.response.data.message}`
-  //     );
-  //   }
-  // };
-
-  // const handleShuffleClick = () => {
-  //   getInitialSounds();
-  // };
 
   // Re-render page based on the subgenre param
   useEffect(() => {
@@ -237,12 +110,12 @@ const SetUser = () => {
     audioRefs.current[index] = ref;
   };
 
-  const handleSaveClick = () => {
-    setSaveModalClass("save-set--display");
+  const handleEditClick = () => {
+    setEditModalClass("edit-set--display");
   };
 
-  const resetSaveModalClass = () => {
-    setSaveModalClass("");
+  const resetEditModalClass = () => {
+    setEditModalClass("");
   };
 
   // Loading element while any sound state is null
@@ -262,7 +135,9 @@ const SetUser = () => {
           />
           <div className="sound__info-container">
             <h2 className="sound__type">{savedSounds[0].type.toUpperCase()}</h2>
-            <h3 className="sound__name">{splitOnUnderscore(savedSounds[0].name)}</h3>
+            <h3 className="sound__name">
+              {splitOnUnderscore(savedSounds[0].name)}
+            </h3>
           </div>
           <audio
             ref={(ref) => handleAudioRef(0, ref)}
@@ -280,7 +155,9 @@ const SetUser = () => {
           />
           <div className="sound__info-container">
             <h2 className="sound__type">{savedSounds[1].type.toUpperCase()}</h2>
-            <h3 className="sound__name">{splitOnUnderscore(savedSounds[1].name)}</h3>
+            <h3 className="sound__name">
+              {splitOnUnderscore(savedSounds[1].name)}
+            </h3>
           </div>
           <audio
             ref={(ref) => handleAudioRef(1, ref)}
@@ -298,7 +175,9 @@ const SetUser = () => {
           />
           <div className="sound__info-container">
             <h2 className="sound__type">{savedSounds[2].type.toUpperCase()}</h2>
-            <h3 className="sound__name">{splitOnUnderscore(savedSounds[2].name)}</h3>
+            <h3 className="sound__name">
+              {splitOnUnderscore(savedSounds[2].name)}
+            </h3>
           </div>
           <audio
             ref={(ref) => handleAudioRef(2, ref)}
@@ -316,7 +195,9 @@ const SetUser = () => {
           />
           <div className="sound__info-container">
             <h2 className="sound__type">{savedSounds[3].type.toUpperCase()}</h2>
-            <h3 className="sound__name">{splitOnUnderscore(savedSounds[3].name)}</h3>
+            <h3 className="sound__name">
+              {splitOnUnderscore(savedSounds[3].name)}
+            </h3>
           </div>
           <audio
             ref={(ref) => handleAudioRef(3, ref)}
@@ -333,9 +214,8 @@ const SetUser = () => {
           <div className="controls__icon-container">
             <img
               className="controls__icon controls__icon--secondary"
-              src={shuffleBtn}
+              src={shareBtn}
               alt="shuffle icon"
-              // onClick={handleShuffleClick}
             />
           </div>
           <div className="controls__icon-container">
@@ -365,21 +245,18 @@ const SetUser = () => {
           <div className="controls__icon-container">
             <img
               className="controls__icon controls__icon--secondary"
-              src={saveBtn}
+              src={editBtn}
               alt="save set icon"
-              onClick={handleSaveClick}
+              onClick={handleEditClick}
             />
           </div>
         </div>
       </section>
-      <SaveSet
-        // subgenre={subgenre}
-        // drumsId={drums.id}
-        // harmonyId={harmony.id}
-        // bassId={bass.id}
-        // synthId={synth.id}
-        saveModalClass={saveModalClass}
-        resetSaveModalClass={resetSaveModalClass}
+      <EditSet
+        userId={userId}
+        setId={setId}
+        editModalClass={editModalClass}
+        resetEditModalClass={resetEditModalClass}
       />
     </main>
   );
