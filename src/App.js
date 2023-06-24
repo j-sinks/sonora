@@ -9,6 +9,7 @@ import SetAI from "./pages/SetAI/SetAI";
 import Set from "./pages/Set/Set";
 import Profile from "./pages/Profile/Profile";
 import Sets from "./pages/Sets/Sets";
+import SetUser from "./pages/SetUser/SetUser";
 import Sounds from "./pages/Sounds/Sounds";
 import Error from "./pages/Error/Error";
 import Footer from "./components/Footer/Footer";
@@ -118,7 +119,7 @@ function App() {
           <Route path="set/:subgenre" element={<Set />} />
           <Route path="profile/:userId" element={<Profile />} />
           <Route path="profile/:userId/sets" element={<Sets />} />
-          <Route path="profile/:userId/sets/:setId" element={<Set />} />
+          <Route path="profile/:userId/sets/:setId" element={<SetUser />} />
           <Route path="profile/:userId/sounds" element={<Sounds />} />
           <Route path="*" element={<Error />} />
         </Routes>
