@@ -36,7 +36,7 @@ const Sets = () => {
       <h1 className="sets__title">Your Sets</h1>
       <section className="sets_container">
         {userSets.map((userSet) => (
-          <SetCard key={userSet.id} setInfo={userSet} />
+          <SetCard key={userSet.id} setInfo={userSet} userId={userId}/>
         ))}
       </section>
       <Link className="sets__link" to="/">

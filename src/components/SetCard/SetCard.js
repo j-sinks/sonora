@@ -5,10 +5,10 @@ import "./SetCard.scss";
 import playIcon from "../../assets/images/icons/play-white.svg";
 import moreInfo from "../../assets/images/icons/more-vertical-white.svg";
 
-const SetCard = ({ setInfo }) => {
-  const { name, genre, updated_at } = setInfo;
+const SetCard = ({ setInfo, userId }) => {
+  const { id, name, genre, updated_at } = setInfo;
   return (
-    <Link className="set-card" to="">
+    <Link className="set-card" to={`/profile/${userId}/sets/${id}`}>
       <article>
         <img className="play-icon" src={playIcon} alt="play icon" />
         <h2 className="set-card__title">{capitaliseFirstLetter(name)}</h2>
