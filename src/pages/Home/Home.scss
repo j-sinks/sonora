@@ -32,21 +32,23 @@
   }
 
   &__input {
-    width: 67%;
-    height: 3.2rem;
-    border-radius: 2.5rem;
+    @include sonora-input;
+    width: 80%;
+    max-width: 33rem;
     text-align: center;
-    border: 0.2rem solid $primary-color-6;
-    color: $primary-color-5;
+
+    @include media-tablet {
+      max-width: 49rem;
+    }
 
     &::placeholder {
       text-align: center;
     }
 
-    &:focus {
-      outline: none;
-      border: 0.2rem solid $primary-color-4;
-    }
+    // &:focus {
+    //   outline: none;
+    //   border: 0.2rem solid $primary-color-4;
+    // }
   }
 
   &__error {

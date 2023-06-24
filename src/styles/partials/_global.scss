@@ -6,6 +6,10 @@
 
 body {
   padding: 1.6rem;
+
+  @include media-tablet {
+    padding: 1.6rem 3.2rem;
+  }
 }
 
 // Fonts

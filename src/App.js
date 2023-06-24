@@ -107,7 +107,7 @@ function App() {
             <Route path="/register" element={<Register />}  />
             <Route path="/" element={<Home handleSelectedGenre={handleSelectedGenre} />}  />
             <Route path="home" element={<Navigate to="/" />} />
-            <Route path="set" element={<SetAI genreData={genreData} />}  />
+            <Route path="set" element={<SetAI selectedGenre={selectedGenre} genreData={genreData} />}  />
             <Route path="set/:subgenre" element={<Set />}  />
             <Route path="profile/:userId" element={<Profile />}  />
             <Route path="profile/:userId/sets" element={<Sets />}  />

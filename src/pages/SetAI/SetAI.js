@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { splitOnUnderscore } from "../../utils/stringFormatting";
+import { capitaliseFirstLetter, splitOnUnderscore } from "../../utils/stringFormatting";
 import { randomIndex } from "../../utils/math";
 import "./SetAI.scss";
 import Loading from "../../components/Loading/Loading";
@@ -13,7 +13,7 @@ import stopBtn from "../../assets/images/icons/stop-button.svg";
 import resetBtn from "../../assets/images/icons//reset-button.svg";
 import saveBtn from "../../assets/images/icons/save-white.svg";
 
-const SetAI = ({ genreData }) => {
+const SetAI = ({ selectedGenre, genreData }) => {
   const { instruments, bpm } = genreData;
   // console.log(genreData);
 
@@ -254,6 +254,7 @@ const SetAI = ({ genreData }) => {
   return (
     <main>
       <section className="set">
+        <h1 className="set__title">{capitaliseFirstLetter(selectedGenre)}</h1>
         <article className="sound sound--1" onClick={() => handleMuteClick(0)}>
           <img
             className="sound__more-icon"

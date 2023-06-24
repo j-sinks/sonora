@@ -69,6 +69,11 @@
 
   &::placeholder {
     color: $primary-color-3;
+
+    @include media-tablet {
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+    }
   }
 
   &:focus {
