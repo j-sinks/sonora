@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { capitaliseFirstLetter, splitOnUnderscore } from "../../utils/stringFormatting";
+import { capitaliseFirstLetter, splitOnUnderscore, removeSuffix } from "../../utils/stringFormatting";
 import { randomIndex } from "../../utils/math";
 import "./SetAI.scss";
 import Loading from "../../components/Loading/Loading";
@@ -263,7 +263,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           />
           <div className="sound__info-container">
             <h2 className="sound__type">SOUND 1</h2>
-            <h3 className="sound__name">{splitOnUnderscore(sound1.name)}</h3>
+            <h3 className="sound__name">{splitOnUnderscore(removeSuffix(sound1.name))}</h3>
           </div>
           <audio
             ref={(ref) => handleAudioRef(0, ref)}
@@ -281,7 +281,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           />
           <div className="sound__info-container">
             <h2 className="sound__type">SOUND 2</h2>
-            <h3 className="sound__name">{splitOnUnderscore(sound2.name)}</h3>
+            <h3 className="sound__name">{splitOnUnderscore(removeSuffix(sound2.name))}</h3>
           </div>
           <audio
             ref={(ref) => handleAudioRef(1, ref)}
@@ -299,7 +299,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           />
           <div className="sound__info-container">
             <h2 className="sound__type">SOUND 3</h2>
-            <h3 className="sound__name">{splitOnUnderscore(sound3.name)}</h3>
+            <h3 className="sound__name">{splitOnUnderscore(removeSuffix(sound3.name))}</h3>
           </div>
           <audio
             ref={(ref) => handleAudioRef(2, ref)}
@@ -317,7 +317,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           />
           <div className="sound__info-container">
             <h2 className="sound__type">SOUND 4</h2>
-            <h3 className="sound__name">{splitOnUnderscore(sound4.name)}</h3>
+            <h3 className="sound__name">{splitOnUnderscore(removeSuffix(sound4.name))}</h3>
           </div>
           <audio
             ref={(ref) => handleAudioRef(3, ref)}

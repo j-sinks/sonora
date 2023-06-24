@@ -25,3 +25,11 @@ export const capitaliseFirstLetter = (str) => {
   });
   return formattedString.join(" ");
 };
+
+// Remove suffix from Freesound sample name
+export const removeSuffix = (str) => {
+  const arrayString = str.split(".");
+  const formattedString = arrayString[0];
+
+  return formattedString;
+};

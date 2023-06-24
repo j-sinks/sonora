@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import './App.scss';
+import "./App.scss";
 import Header from "./components/Header/Header";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
@@ -22,7 +22,7 @@ function App() {
   // handle fucntion which is passed down to home page so state can be updated with user input
   const handleSelectedGenre = (genre) => {
     setSelectedGenre(genre);
-  }
+  };
 
   // Input prompt for model
   const prompt = `What instruments define ${selectedGenre} music? I am interested /
@@ -71,7 +71,7 @@ function App() {
     let params = {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: input }],
-      max_tokens: 100, 
+      max_tokens: 100,
       temperature: 0,
     };
     client
@@ -90,7 +90,6 @@ function App() {
   // First checks if this is the initial mount, if yes the model is not prompted
   // gpt-3.5-turbo has a request limit of 3/min
   useEffect(() => {
-
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
@@ -104,16 +103,24 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-            <Route path="/register" element={<Register />}  />
-            <Route path="/" element={<Home handleSelectedGenre={handleSelectedGenre} />}  />
-            <Route path="home" element={<Navigate to="/" />} />
-            <Route path="set" element={<SetAI selectedGenre={selectedGenre} genreData={genreData} />}  />
-            <Route path="set/:subgenre" element={<Set />}  />
-            <Route path="profile/:userId" element={<Profile />}  />
-            <Route path="profile/:userId/sets" element={<Sets />}  />
-            <Route path="profile/:userId/sets/:setId" element={<Set />}  />
-            <Route path="profile/:userId/sounds" element={<Sounds />}  />
-            <Route path="*" element={<Error />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/"
+            element={<Home handleSelectedGenre={handleSelectedGenre} />}
+          />
+          <Route path="home" element={<Navigate to="/" />} />
+          <Route
+            path="set"
+            element={
+              <SetAI selectedGenre={selectedGenre} genreData={genreData} />
+            }
+          />
+          <Route path="set/:subgenre" element={<Set />} />
+          <Route path="profile/:userId" element={<Profile />} />
+          <Route path="profile/:userId/sets" element={<Sets />} />
+          <Route path="profile/:userId/sets/:setId" element={<Set />} />
+          <Route path="profile/:userId/sounds" element={<Sounds />} />
+          <Route path="*" element={<Error />} />
         </Routes>
         <Footer />
       </BrowserRouter>
