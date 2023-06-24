@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { splitOnUnderscore } from "../../utils/stringFormatting";
+import { formattedSubgenre, splitOnUnderscore } from "../../utils/stringFormatting";
 import { randomIndex } from "../../utils/math";
 import "./Set.scss";
 import Loading from "../../components/Loading/Loading";
@@ -216,6 +216,7 @@ const Set = () => {
   return (
     <main>
       <section className="set">
+        <h1 className="set__title">{formattedSubgenre(subgenre)}</h1>
         <article className="sound sound--1" onClick={() => handleMuteClick(0)}>
           <img
             className="sound__more-icon"
@@ -335,6 +336,11 @@ const Set = () => {
         </div>
       </section>
       <SaveSet
+        subgenre={subgenre}
+        drumsId={drums.id}
+        harmonyId={harmony.id}
+        bassId={bass.id}
+        synthId={synth.id}
         saveModalClass={saveModalClass}
         resetSaveModalClass={resetSaveModalClass}
       />

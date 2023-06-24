@@ -27,8 +27,6 @@ const Sets = () => {
     getSets();
   }, []);
 
-  console.log(userSets);
-
   // Loading element while user sets state is undefined
   if (!userSets) {
     return <Loading />;

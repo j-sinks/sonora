@@ -19,7 +19,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="header__nav-container header__nav-container--right">
-        <Link to="profile/:userId">
+        <Link to={`profile/${process.env.REACT_APP_USER_ID}/sets`}>
           <img className="nav-icon" src={profilebtn} alt="profile icon" />
         </Link>
       </div>

@@ -23,11 +23,18 @@
     @include flex(column, center, center);
     height: 100%;
     width: 80%;
+    position: relative;
   }
 
   &__input {
     @include sonora-input;
     margin: 1.6rem 0;
+  }
+
+  &__error {
+    color: $primary-color-3;
+    position: absolute;
+    top: 11.4rem;
   }
 
   &__btn-container {
