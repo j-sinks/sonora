@@ -7,7 +7,7 @@ import SetCard from "../../components/SetCard/SetCard";
 
 const Sets = () => {
   const [userSets, setUserSets] = useState([]);
-  
+
   const { userId } = useParams();
 
   const getSets = async () => {
@@ -15,7 +15,12 @@ const Sets = () => {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/profile/${userId}/sets`
       );
-      setUserSets(response.data);
+
+      const setsSorted = response.data.sort((a, b) => {
+        return new Date(b.updated_at) - new Date(a.updated_at);
+      });
+
+      setUserSets(setsSorted);
     } catch (error) {
       console.log(
         `Error ${error.response.status}: ${error.response.data.message}`
@@ -28,8 +33,8 @@ const Sets = () => {
   }, []);
 
   const handleSetDelete = (setId) => {
-    setUserSets(userSets.filter(userSet => userSet.id !== setId));
-  }
+    setUserSets(userSets.filter((userSet) => userSet.id !== setId));
+  };
 
   // Loading element while user sets state is undefined
   if (!userSets) {

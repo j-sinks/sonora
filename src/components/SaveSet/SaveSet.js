@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./SaveSet.scss";
 
@@ -15,6 +16,8 @@ const SaveSet = ({
 
   const [input, setInput] = useState("");
   const [inputIsTouched, setInputIsTouched] = useState(false);
+
+  const navigate = useNavigate();
 
   // Updates form state based on user input
   // Also updates state so validation knows the form has been interacted with
@@ -71,6 +74,7 @@ const SaveSet = ({
     setIsVisible(true);
     resetSaveModalClass();
     setIsVisible(false);
+    navigate(`/profile/${process.env.REACT_APP_USER_ID}/sets`)
   };
 
   return (
