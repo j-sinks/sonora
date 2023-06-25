@@ -164,6 +164,27 @@ const Set = () => {
     setMutedStates(new Array(audioRefs.current.length).fill(false));
   }, []);
 
+  // For the progress bar animation
+  // useEffect(() => {
+  //   const handleTimeUpdate = (index) => {
+  //     const audio = audioElements[index];
+  //     const container = audio.closest("article");
+
+  //     const progress = (audio.currentTime / audio.duration) * 100;
+  //     container.style.setProperty("--progress-width", `${progress}%`);
+  //   };
+
+  //   audioElements.forEach((audio, index) => {
+  //     audio.addEventListener("timeupdate", () => handleTimeUpdate(index));
+  //   });
+
+  //   return () => {
+  //     audioElements.forEach((audio, index) => {
+  //       audio.removeEventListener("timeupdate", () => handleTimeUpdate(index));
+  //     });
+  //   };
+  // }, [audioElements]);
+
   const handlePlayClick = () => {
     audioElements.forEach((audio) => {
       audio.play();

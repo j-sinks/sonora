@@ -5,7 +5,6 @@
 .set {
   @include flex(column, center, center);
   height: 80vh;
-  // padding: 20vh 0 20vh 0;
   padding-top: 2.4rem;
 
   &__title {
@@ -23,6 +22,22 @@
   margin-bottom: 0.8rem;
   padding-left: 1.6rem;
   color: $primary-color-1;
+
+  &:hover {
+    filter: saturate(150%);
+  }
+
+  // &::before {
+  //   content: "";
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: var(--progress-width, 0%);
+  //   height: 15vh; 
+  //   // z-index: 1;
+  //   background-color: #0066ff;
+  //   transition: width 0.3s linear;
+  // }
 
   &--1 {
     background-color: $sound-color-1;
@@ -59,7 +74,6 @@
   // &__info-container {
 
   // }
-
 }
 
 .controls {
@@ -75,18 +89,15 @@
     cursor: pointer;
 
     &--primary {
-
       &:hover {
         transform: scale(1.1);
       }
     }
 
     &--secondary {
-
       &:hover {
         @include cta-hover(0.9, scale(1.3));
       }
     }
-
   }
 }

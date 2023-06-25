@@ -20,11 +20,6 @@
     border-radius: 0.5rem;
     padding: 3.2rem 1.6rem;
     position: relative;
-
-    // &:hover {
-    //   background-color: $primary-color-4;
-    //   border: 0.2rem solid $primary-color-6;
-    // }
   }
 
   &__label {
@@ -44,11 +39,6 @@
     &::placeholder {
       text-align: center;
     }
-
-    // &:focus {
-    //   outline: none;
-    //   border: 0.2rem solid $primary-color-4;
-    // }
   }
 
   &__error {
