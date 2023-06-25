@@ -11,6 +11,7 @@ const SetOptions = ({
   userId,
   optionsModalClass,
   resetOptionsModalClass,
+  setDeleteStatus,
   getSets
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,6 +39,7 @@ const SetOptions = ({
 
   const handleDeleteClick = () => {
     deleteSet();
+    setDeleteStatus(true);
     setIsVisible(true);
     resetOptionsModalClass();
     setIsVisible(false);
@@ -53,7 +55,7 @@ const SetOptions = ({
   return (
     <article
       className={
-        !isVisible ? `set-options ${optionsModalClass}` : "set-options"
+        !isVisible ? `set-options ${optionsModalClass}` : "set-options set-options--hide"
       }
     >
       <h1 className="set-options__title">{name}</h1>
