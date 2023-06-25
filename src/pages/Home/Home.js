@@ -15,13 +15,6 @@ const Home = ({ handleSelectedGenre }) => {
 
   const navigate = useNavigate();
 
-  // Allows for buffer to await the model's response before navigating to set
-  const redirectAfter = (timer) => {
-    setTimeout(() => {
-      navigate("set");
-    }, timer);
-  }
-
   // Updates form state based on user input
   // Also updates state so validation knows the form has been interacted with
   const handleChangeInput = (event) => {
@@ -52,7 +45,7 @@ const Home = ({ handleSelectedGenre }) => {
     setInput("");
     setInputIsTouched(false);
 
-    redirectAfter(10000);
+    navigate("set");
   };
 
   // Retrieve all sounds from database

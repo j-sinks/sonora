@@ -44,7 +44,7 @@ const Set = () => {
 
       // Request bass in the same key & scale as the chords
       const bassResponse = await axios.get(
-        `${process.env.REACT_APP_API_URL}/sound${bassQuery}`
+        `${process.env.REACT_APP_API_URL}/sounds${bassQuery}`
       );
 
       // If no match is found, request bass in the same relative key & scale as the chords

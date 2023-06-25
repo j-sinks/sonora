@@ -27,6 +27,12 @@ const SetAI = ({ selectedGenre, genreData }) => {
   const [audioElements, setAudioElements] = useState([]);
   const audioRefs = useRef([]);
 
+  const [loadedStates, setLoadedStates] = useState([
+    false,
+    false,
+    false,
+    false,
+  ]);
   const [mutedStates, setMutedStates] = useState([]);
 
   const [playAnimationClass, setPlayAnimationClass] = useState(true);
@@ -122,11 +128,24 @@ const SetAI = ({ selectedGenre, genreData }) => {
     setMutedStates(new Array(audioRefs.current.length).fill(false));
   }, []);
 
+  const playAllAudio = () => {
+    const allLoaded = loadedStates.every((state) => state);
+    if (allLoaded) {
+      audioElements.forEach((audio) => {
+        audio.volume = 1;
+        audio.play();
+        setPlayAnimationClass(true);
+      });
+    }
+  };
+
   const handlePlayClick = () => {
-    audioElements.forEach((audio) => {
-      audio.play();
-      setPlayAnimationClass(true);
-    });
+    if (loadedStates.every((state) => state)) {
+      audioElements.forEach((audio) => {
+        audio.play();
+        setPlayAnimationClass(true);
+      });
+    }
   };
 
   const handleStopClick = () => {
@@ -162,7 +181,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
     audioRefs.current[index] = ref;
   };
 
-  // Loading element while any sound state is null
+  // Loading element while any sound state is null, or sounds are not fully loaded
   if (!sound1 || !sound2 || !sound3 || !sound4) {
     return <Loading />;
   }
@@ -191,7 +210,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound1.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            autoPlay
+            // autoPlay
+            onCanPlayThrough={() => {
+              setLoadedStates((prevStates) => {
+                const newStates = [...prevStates];
+                newStates[0] = true;
+                return newStates;
+              });
+              playAllAudio();
+            }}
           ></audio>
         </article>
         <article
@@ -214,7 +241,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound2.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            autoPlay
+            // autoPlay
+            onCanPlayThrough={() => {
+              setLoadedStates((prevStates) => {
+                const newStates = [...prevStates];
+                newStates[1] = true;
+                return newStates;
+              });
+              playAllAudio();
+            }}
           ></audio>
         </article>
         <article
@@ -237,7 +272,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound3.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            autoPlay
+            // autoPlay
+            onCanPlayThrough={() => {
+              setLoadedStates((prevStates) => {
+                const newStates = [...prevStates];
+                newStates[2] = true;
+                return newStates;
+              });
+              playAllAudio();
+            }}
           ></audio>
         </article>
         <article
@@ -260,7 +303,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound4.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            autoPlay
+            // autoPlay
+            onCanPlayThrough={() => {
+              setLoadedStates((prevStates) => {
+                const newStates = [...prevStates];
+                newStates[3] = true;
+                return newStates;
+              });
+              playAllAudio();
+            }}
           ></audio>
         </article>
         <article className="sound sound--add">
