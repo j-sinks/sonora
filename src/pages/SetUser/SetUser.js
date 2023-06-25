@@ -12,8 +12,8 @@ import addSound from "../../assets/images/icons/plus-grey.svg";
 import shareBtn from "../../assets/images/icons/upload-white.svg";
 import playBtn from "../../assets/images/icons/play-button.svg";
 import stopBtn from "../../assets/images/icons/stop-button.svg";
-import resetBtn from "../../assets/images/icons//reset-button.svg";
-import editBtn from "../../assets/images/icons//edit-white.svg";
+import resetBtn from "../../assets/images/icons/reset-button.svg";
+import editBtn from "../../assets/images/icons/edit-white.svg";
 import EditSet from "../../components/EditSet/EditSet";
 
 const SetUser = () => {

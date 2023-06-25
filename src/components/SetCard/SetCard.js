@@ -4,6 +4,7 @@ import { formattedSubgenre, capitaliseFirstLetter } from "../../utils/stringForm
 import "./SetCard.scss";
 import playIcon from "../../assets/images/icons/play-white.svg";
 import moreInfo from "../../assets/images/icons/more-vertical-white.svg";
+import SetOptions from "../SetOptions/SetOptions";
 
 const SetCard = ({ setInfo, userId }) => {
   const { id, name, genre, updated_at } = setInfo;
@@ -17,6 +18,7 @@ const SetCard = ({ setInfo, userId }) => {
           <img className="more-icon" src={moreInfo} alt="more info icon" />
         </button>
       </article>
+      <SetOptions />
     </Link>
   )
 };
