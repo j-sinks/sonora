@@ -7,8 +7,7 @@ import SetCard from "../../components/SetCard/SetCard";
 
 const Sets = () => {
   const [userSets, setUserSets] = useState([]);
-  const [deleteStatus, setDeleteStatus] = useState(false);
-
+  
   const { userId } = useParams();
 
   const getSets = async () => {
@@ -26,7 +25,11 @@ const Sets = () => {
 
   useEffect(() => {
     getSets();
-  }, [deleteStatus]);
+  }, []);
+
+  const handleSetDelete = (setId) => {
+    setUserSets(userSets.filter(userSet => userSet.id !== setId));
+  }
 
   // Loading element while user sets state is undefined
   if (!userSets) {
@@ -41,8 +44,7 @@ const Sets = () => {
             key={userSet.id}
             setInfo={userSet}
             userId={userId}
-            setDeleteStatus={setDeleteStatus}
-            getSets={getSets}
+            handleSetDelete={handleSetDelete}
           />
         ))}
       </section>

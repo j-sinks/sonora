@@ -11,8 +11,7 @@ const SetOptions = ({
   userId,
   optionsModalClass,
   resetOptionsModalClass,
-  setDeleteStatus,
-  getSets
+  handleSetDelete
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -39,11 +38,10 @@ const SetOptions = ({
 
   const handleDeleteClick = () => {
     deleteSet();
-    setDeleteStatus(true);
+    handleSetDelete(setId);
     setIsVisible(true);
     resetOptionsModalClass();
     setIsVisible(false);
-    getSets();
   };
 
   const handleCancelClick = () => {

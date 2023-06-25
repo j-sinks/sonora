@@ -10,7 +10,7 @@ import playIcon from "../../assets/images/icons/play-white.svg";
 import moreInfo from "../../assets/images/icons/more-vertical-white.svg";
 import SetOptions from "../SetOptions/SetOptions";
 
-const SetCard = ({ setInfo, userId, setDeleteStatus, getSets }) => {
+const SetCard = ({ setInfo, userId, handleSetDelete }) => {
   const { id, name, genre, updated_at } = setInfo;
 
   const [optionsModalClass, setOptionsModalClass] = useState("");
@@ -45,8 +45,7 @@ const SetCard = ({ setInfo, userId, setDeleteStatus, getSets }) => {
         userId={userId}
         optionsModalClass={optionsModalClass}
         resetOptionsModalClass={resetOptionsModalClass}
-        setDeleteStatus={setDeleteStatus}
-        getSets={getSets}
+        handleSetDelete={handleSetDelete}
       />
     </>
   );
