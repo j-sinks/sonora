@@ -3,7 +3,6 @@
 @use "../../styles/partials/mixins" as *;
 
 .set-card {
-  @include flex(column, center, null);
   background-color: $primary-color-1;
   height: 10vh;
   width: 100%;
@@ -28,6 +27,12 @@
   &__subtitle {
     color: $primary-color-4;
   }
+
+  &__link {
+    @include flex(column, center, null);
+    width: 90%;
+    height: 100%;
+  }
 }
 
 .play-icon {
@@ -42,4 +47,9 @@
   right: 1.6rem;
   background: transparent;
   border: none;
+  cursor: pointer;
+
+  &:hover {
+    @include cta-hover(0.9, scale(1.3));
+  }
 }

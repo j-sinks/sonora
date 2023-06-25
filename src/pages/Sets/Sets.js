@@ -25,7 +25,7 @@ const Sets = () => {
 
   useEffect(() => {
     getSets();
-  }, []);
+  }, [userSets]);
 
   // Loading element while user sets state is undefined
   if (!userSets) {
@@ -36,7 +36,12 @@ const Sets = () => {
       <h1 className="sets__title">Your Sets</h1>
       <section className="sets_container">
         {userSets.map((userSet) => (
-          <SetCard key={userSet.id} setInfo={userSet} userId={userId}/>
+          <SetCard
+            key={userSet.id}
+            setInfo={userSet}
+            userId={userId}
+            getSets={getSets}
+          />
         ))}
       </section>
       <Link className="sets__link" to="/">
