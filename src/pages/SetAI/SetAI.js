@@ -29,6 +29,8 @@ const SetAI = ({ selectedGenre, genreData }) => {
 
   const [mutedStates, setMutedStates] = useState([]);
 
+  const [playAnimationClass, setPlayAnimationClass] = useState(true);
+
   // Requests intial sounds from API and sets into state.
   const getInitialSounds = async () => {
     const pageSize = "page_size=50";
@@ -123,12 +125,14 @@ const SetAI = ({ selectedGenre, genreData }) => {
   const handlePlayClick = () => {
     audioElements.forEach((audio) => {
       audio.play();
+      setPlayAnimationClass(true);
     });
   };
 
   const handleStopClick = () => {
     audioElements.forEach((audio) => {
       audio.pause();
+      setPlayAnimationClass(false);
     });
   };
 
@@ -137,6 +141,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
       audio.pause();
       audio.currentTime = 0;
       audio.play();
+      setPlayAnimationClass(true);
     });
   };
 
@@ -166,7 +171,10 @@ const SetAI = ({ selectedGenre, genreData }) => {
     <main>
       <section className="set">
         <h1 className="set__title">{capitaliseFirstLetter(selectedGenre)}</h1>
-        <article className="sound sound--1" onClick={() => handleMuteClick(0)}>
+        <article
+          className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(0)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -186,7 +194,10 @@ const SetAI = ({ selectedGenre, genreData }) => {
             autoPlay
           ></audio>
         </article>
-        <article className="sound sound--2" onClick={() => handleMuteClick(1)}>
+        <article
+          className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(1)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -206,7 +217,10 @@ const SetAI = ({ selectedGenre, genreData }) => {
             autoPlay
           ></audio>
         </article>
-        <article className="sound sound--3" onClick={() => handleMuteClick(2)}>
+        <article
+          className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(2)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -226,7 +240,10 @@ const SetAI = ({ selectedGenre, genreData }) => {
             autoPlay
           ></audio>
         </article>
-        <article className="sound sound--4" onClick={() => handleMuteClick(3)}>
+        <article
+          className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(3)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -273,6 +290,9 @@ const SetAI = ({ selectedGenre, genreData }) => {
               alt="play audio icon"
               onClick={handlePlayClick}
             />
+            <div
+              className={playAnimationClass && "controls__play-animation"}
+            ></div>
           </div>
           <div className="controls__icon-container">
             <img

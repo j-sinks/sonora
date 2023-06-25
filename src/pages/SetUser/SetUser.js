@@ -27,6 +27,8 @@ const SetUser = () => {
 
   const [editModalClass, setEditModalClass] = useState("");
 
+  const [playAnimationClass, setPlayAnimationClass] = useState(true);
+
   const { userId, setId } = useParams();
 
   // Requests intial sounds from API and sets into state.
@@ -76,12 +78,14 @@ const SetUser = () => {
   const handlePlayClick = () => {
     audioElements.forEach((audio) => {
       audio.play();
+      setPlayAnimationClass(true);
     });
   };
 
   const handleStopClick = () => {
     audioElements.forEach((audio) => {
       audio.pause();
+      setPlayAnimationClass(false);
     });
   };
 
@@ -90,6 +94,7 @@ const SetUser = () => {
       audio.pause();
       audio.currentTime = 0;
       audio.play();
+      setPlayAnimationClass(true);
     });
   };
 
@@ -127,7 +132,10 @@ const SetUser = () => {
     <main>
       <section className="set">
         <h1 className="set__title">{formattedSubgenre(setData.name)}</h1>
-        <article className="sound sound--1" onClick={() => handleMuteClick(0)}>
+        <article
+          className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(0)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -147,7 +155,10 @@ const SetUser = () => {
             autoPlay
           ></audio>
         </article>
-        <article className="sound sound--2" onClick={() => handleMuteClick(1)}>
+        <article
+          className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(1)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -167,7 +178,10 @@ const SetUser = () => {
             autoPlay
           ></audio>
         </article>
-        <article className="sound sound--3" onClick={() => handleMuteClick(2)}>
+        <article
+          className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(2)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -187,7 +201,10 @@ const SetUser = () => {
             autoPlay
           ></audio>
         </article>
-        <article className="sound sound--4" onClick={() => handleMuteClick(3)}>
+        <article
+          className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(3)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -233,6 +250,9 @@ const SetUser = () => {
               alt="play audio icon"
               onClick={handlePlayClick}
             />
+            <div
+              className={playAnimationClass && "controls__play-animation"}
+            ></div>
           </div>
           <div className="controls__icon-container">
             <img
