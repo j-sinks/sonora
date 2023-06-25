@@ -22,9 +22,11 @@
   margin-bottom: 0.8rem;
   padding-left: 1.6rem;
   color: $primary-color-1;
+  transition: left 0.25s ease;
 
   &:hover {
     filter: saturate(150%);
+    left: -1.5rem;
   }
 
   // &::before {
@@ -38,6 +40,14 @@
   //   background-color: #0066ff;
   //   transition: width 0.3s linear;
   // }
+
+  &--muted {
+    filter: saturate(25%);
+
+    &:hover {
+      filter: saturate(25%);
+    }
+  }
 
   &--1 {
     background-color: $sound-color-1;

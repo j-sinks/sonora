@@ -239,7 +239,10 @@ const Set = () => {
     <main>
       <section className="set">
         <h1 className="set__title">{formattedSubgenre(subgenre)}</h1>
-        <article className="sound sound--1" onClick={() => handleMuteClick(0)}>
+        <article
+          className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(0)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -257,7 +260,10 @@ const Set = () => {
             autoPlay
           ></audio>
         </article>
-        <article className="sound sound--2" onClick={() => handleMuteClick(1)}>
+        <article
+          className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(1)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -275,7 +281,10 @@ const Set = () => {
             autoPlay
           ></audio>
         </article>
-        <article className="sound sound--3" onClick={() => handleMuteClick(2)}>
+        <article
+          className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(2)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
@@ -293,7 +302,10 @@ const Set = () => {
             autoPlay
           ></audio>
         </article>
-        <article className="sound sound--4" onClick={() => handleMuteClick(3)}>
+        <article
+          className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
+          onClick={() => handleMuteClick(3)}
+        >
           <img
             className="sound__more-icon"
             src={moreInfo}
