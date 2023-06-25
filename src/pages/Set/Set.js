@@ -30,6 +30,8 @@ const Set = () => {
 
   const [saveModalClass, setSaveModalClass] = useState("");
 
+  const [playAnimationClass, setPlayAnimationClass] = useState(true);
+
   const { subgenre } = useParams();
 
   // Requests bass sample from API using the key & scale restraints set by the harmony sample
@@ -188,12 +190,14 @@ const Set = () => {
   const handlePlayClick = () => {
     audioElements.forEach((audio) => {
       audio.play();
+      setPlayAnimationClass(true);
     });
   };
 
   const handleStopClick = () => {
     audioElements.forEach((audio) => {
       audio.pause();
+      setPlayAnimationClass(false);
     });
   };
 
@@ -202,6 +206,7 @@ const Set = () => {
       audio.pause();
       audio.currentTime = 0;
       audio.play();
+      setPlayAnimationClass(true);
     });
   };
 
@@ -350,6 +355,9 @@ const Set = () => {
               alt="play audio icon"
               onClick={handlePlayClick}
             />
+            <div
+              className={playAnimationClass && "controls__play-animation"}
+            ></div>
           </div>
           <div className="controls__icon-container">
             <img
