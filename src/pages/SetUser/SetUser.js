@@ -99,6 +99,7 @@ const SetUser = () => {
     }, 1000);
   };
 
+  // Handles play click by playing all audio updates state to trigger animation
   const handlePlayClick = () => {
     audioElements.forEach((audio) => {
       audio.play();
@@ -106,6 +107,7 @@ const SetUser = () => {
     });
   };
 
+  // Handles stop click by pausing all audio updates state to remove animation
   const handleStopClick = () => {
     audioElements.forEach((audio) => {
       audio.pause();
@@ -113,6 +115,8 @@ const SetUser = () => {
     });
   };
 
+  // Handles reset click by pausing, resetting time to 0, and playing for all audio,
+  // plus updates state to trigger animation
   const handleResetClick = () => {
     audioElements.forEach((audio) => {
       audio.pause();
@@ -122,6 +126,8 @@ const SetUser = () => {
     });
   };
 
+  // Handles mute click for each audio element, based on the index of the audio element
+  // set in state, if audio is not muted volume is set to 0, and visa versa
   const handleMuteClick = (index) => {
     const audio = audioElements[index];
     const currentMutedStates = [...mutedStates];

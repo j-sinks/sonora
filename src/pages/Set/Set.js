@@ -152,6 +152,7 @@ const Set = () => {
     }
   };
 
+  // Add liked sound to database
   const likeSound = async (soundId) => {
     try {
       await axios.post(
@@ -167,6 +168,7 @@ const Set = () => {
     }
   };
 
+  // Handles the like button click and updates state to trigger animation
   const handleLikeClick = (soundId) => {
     setIsShaking(true);
     likeSound(soundId);
@@ -175,42 +177,23 @@ const Set = () => {
     }, 1000);
   };
 
+  // Handles the shuffle click and calls the get sounds function
   const handleShuffleClick = () => {
     getInitialSounds();
   };
 
-  // Re-render page based on the subgenre param
+  // Get sounds when the component is mounted and when the on the subgenre variable updates
   useEffect(() => {
     getInitialSounds();
   }, [subgenre]);
 
-  // Update the audio ref when the component is rendered
+  // Update the audio ref and mute states when the component is rendered
   useEffect(() => {
     setAudioElements(audioRefs.current);
     setMutedStates(new Array(audioRefs.current.length).fill(false));
   }, []);
 
-  // For the progress bar animation
-  // useEffect(() => {
-  //   const handleTimeUpdate = (index) => {
-  //     const audio = audioElements[index];
-  //     const container = audio.closest("article");
-
-  //     const progress = (audio.currentTime / audio.duration) * 100;
-  //     container.style.setProperty("--progress-width", `${progress}%`);
-  //   };
-
-  //   audioElements.forEach((audio, index) => {
-  //     audio.addEventListener("timeupdate", () => handleTimeUpdate(index));
-  //   });
-
-  //   return () => {
-  //     audioElements.forEach((audio, index) => {
-  //       audio.removeEventListener("timeupdate", () => handleTimeUpdate(index));
-  //     });
-  //   };
-  // }, [audioElements]);
-
+  // Handles play click by playing all audio updates state to trigger animation
   const handlePlayClick = () => {
     audioElements.forEach((audio) => {
       audio.play();
@@ -218,6 +201,7 @@ const Set = () => {
     });
   };
 
+  // Handles stop click by pausing all audio updates state to remove animation
   const handleStopClick = () => {
     audioElements.forEach((audio) => {
       audio.pause();
@@ -225,6 +209,8 @@ const Set = () => {
     });
   };
 
+  // Handles reset click by pausing, resetting time to 0, and playing for all audio,
+  // plus updates state to trigger animation
   const handleResetClick = () => {
     audioElements.forEach((audio) => {
       audio.pause();
@@ -234,6 +220,8 @@ const Set = () => {
     });
   };
 
+  // Handles mute click for each audio element, based on the index of the audio element
+  // set in state, if audio is not muted volume is set to 0, and visa versa
   const handleMuteClick = (index) => {
     const audio = audioElements[index];
     const currentMutedStates = [...mutedStates];

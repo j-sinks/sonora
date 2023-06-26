@@ -136,6 +136,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
     setMutedStates(new Array(audioRefs.current.length).fill(false));
   }, []);
 
+  // Update the audio ref and mute states when the component is rendered
   const playAllAudio = () => {
     const allLoaded = loadedStates.every((state) => state);
     if (allLoaded) {
@@ -146,6 +147,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
     }
   };
 
+  // Handles play click by playing all audio updates state to trigger animation
   const handlePlayClick = () => {
     if (loadedStates.every((state) => state)) {
       audioElements.forEach((audio) => {
@@ -155,6 +157,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
     }
   };
 
+  // Handles stop click by pausing all audio updates state to remove animation
   const handleStopClick = () => {
     audioElements.forEach((audio) => {
       audio.pause();
@@ -162,6 +165,8 @@ const SetAI = ({ selectedGenre, genreData }) => {
     });
   };
 
+  // Handles reset click by pausing, resetting time to 0, and playing for all audio,
+  // plus updates state to trigger animation
   const handleResetClick = () => {
     audioElements.forEach((audio) => {
       audio.pause();
@@ -171,6 +176,8 @@ const SetAI = ({ selectedGenre, genreData }) => {
     });
   };
 
+  // Handles mute click for each audio element, based on the index of the audio element
+  // set in state, if audio is not muted volume is set to 0, and visa versa
   const handleMuteClick = (index) => {
     const audio = audioElements[index];
     const currentMutedStates = [...mutedStates];

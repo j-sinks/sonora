@@ -38,30 +38,6 @@ function App() {
     "bpm": "120 TO 125" /
   } `;
 
-  // Prompt function for davinci-002 model
-  // const getInstrumentsByGenre = (input) => {
-  //   const client = axios.create({
-  //     headers: {
-  //       Authorization: "Bearer " + process.env.REACT_APP_OPENAI_API_KEY,
-  //     },
-  //   });
-  //   let params = {
-  //     prompt: input,
-  //     model: "text-davinci-002",
-  //     max_tokens: 50,
-  //     temperature: 0.1,
-  //   };
-  //   client
-  //     .post(process.env.REACT_APP_OPENAI_API_URL_A, params)
-  //     .then((response) => {
-  //       setInstruments(response.data.choices[0].text);
-  //       console.log(instruments);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   // Prompt function for gpt-3.5-turbo model
   const getInstrumentsByGenre = (input) => {
     const client = axios.create({
