@@ -15,6 +15,7 @@
 
   &__subtitle {
     margin-bottom: 1.6rem;
+    font-size: 2rem;
 
     @include media-tablet {
       font-size: 2.4rem;
@@ -32,7 +33,6 @@
     @include flex(column, space-between, center);
     height: 30vh;
     max-height: 25rem;
-    // border: 0.2rem solid $primary-color-6;
     background-color: $primary-color-5;
     border-radius: 0.5rem;
     padding: 3.2rem 1.6rem;
@@ -45,12 +45,13 @@
 
   &__input {
     @include sonora-input;
-    width: 80%;
-    max-width: 33rem;
+    width: 70%;
+    max-width: 24rem;
+    min-width: 16rem;
     text-align: center;
 
     @include media-tablet {
-      max-width: 49rem;
+      max-width: 30rem;
     }
 
     &::placeholder {
@@ -78,6 +79,7 @@
 .genres {
   &__title {
     margin: 2.4rem 0 1.6rem 0;
+    font-size: 2rem;
 
     @include media-tablet {
       font-size: 2.4rem;

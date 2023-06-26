@@ -108,13 +108,13 @@ const Home = ({ handleSelectedGenre }) => {
           onSubmit={handleSubmit}
         >
           <label className="prompt__label" htmlFor="prompt">
-            What genre of music would you like to create?
+            What would you like to create?
           </label>
           <input
             className="prompt__input"
             type="text"
             name="prompt"
-            placeholder="🎲  Type a genre here..."
+            placeholder="🎲  Add your genre here..."
             onChange={handleChangeInput}
             value={input}
           />
