@@ -60,6 +60,11 @@
     background-color: $primary-color-6;
   }
 
+  &__button {
+    background-color: transparent;
+    border: none;
+  }
+
   &__like-icon {
     position: absolute;
     top: 1rem;
