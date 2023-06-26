@@ -160,9 +160,14 @@ const SetUser = () => {
           className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(0)}
         >
-          <button className="sound__button" onClick={() => handleLikeClick(savedSounds[0].id)}>
+          <button
+            className="sound__button"
+            onClick={() => handleLikeClick(savedSounds[0].id)}
+          >
             <img
-              className={`sound__like-icon ${isShaking ? "sound__like-icon--shake" : ""}`}
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
               src={likeBtn}
               alt="like icon"
             />
@@ -185,9 +190,14 @@ const SetUser = () => {
           className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(1)}
         >
-          <button className="sound__button" onClick={() => handleLikeClick(savedSounds[1].id)}>
+          <button
+            className="sound__button"
+            onClick={() => handleLikeClick(savedSounds[1].id)}
+          >
             <img
-              className={`sound__like-icon ${isShaking ? "sound__like-icon--shake" : ""}`}
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
               src={likeBtn}
               alt="like icon"
             />
@@ -210,9 +220,14 @@ const SetUser = () => {
           className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(2)}
         >
-          <button className="sound__button" onClick={() => handleLikeClick(savedSounds[2].id)}>
+          <button
+            className="sound__button"
+            onClick={() => handleLikeClick(savedSounds[2].id)}
+          >
             <img
-              className={`sound__like-icon ${isShaking ? "sound__like-icon--shake" : ""}`}
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
               src={likeBtn}
               alt="like icon"
             />
@@ -235,9 +250,14 @@ const SetUser = () => {
           className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(3)}
         >
-          <button className="sound__button" onClick={() => handleLikeClick(savedSounds[3].id)}>
+          <button
+            className="sound__button"
+            onClick={() => handleLikeClick(savedSounds[3].id)}
+          >
             <img
-              className={`sound__like-icon ${isShaking ? "sound__like-icon--shake" : ""}`}
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
               src={likeBtn}
               alt="like icon"
             />
@@ -260,47 +280,49 @@ const SetUser = () => {
           <img className="sound__add-icon" src={addSound} alt="plus icon" />
         </article>
         <div className="controls">
-          <div className="controls__icon-container">
-            <img
-              className="controls__icon controls__icon--secondary"
-              src={shareBtn}
-              alt="shuffle icon"
-            />
-          </div>
-          <div className="controls__icon-container">
-            <img
-              className="controls__icon controls__icon--primary"
-              src={resetBtn}
-              alt="reset audio icon"
-              onClick={handleResetClick}
-            />
-          </div>
-          <div className="controls__icon-container">
-            <img
-              className="controls__icon controls__icon--primary"
-              src={playBtn}
-              alt="play audio icon"
-              onClick={handlePlayClick}
-            />
-            <div
-              className={playAnimationClass ? "controls__play-animation" : ""}
-            ></div>
-          </div>
-          <div className="controls__icon-container">
-            <img
-              className="controls__icon controls__icon--primary"
-              src={stopBtn}
-              alt="stop audio icon"
-              onClick={handleStopClick}
-            />
-          </div>
-          <div className="controls__icon-container">
-            <img
-              className="controls__icon controls__icon--secondary"
-              src={editBtn}
-              alt="save set icon"
-              onClick={handleEditClick}
-            />
+          <div className="controls__container">
+            <div className="controls__icon-container">
+              <img
+                className="controls__icon controls__icon--secondary"
+                src={shareBtn}
+                alt="shuffle icon"
+              />
+            </div>
+            <div className="controls__icon-container">
+              <img
+                className="controls__icon controls__icon--primary"
+                src={resetBtn}
+                alt="reset audio icon"
+                onClick={handleResetClick}
+              />
+            </div>
+            <div className="controls__icon-container">
+              <img
+                className="controls__icon controls__icon--primary"
+                src={playBtn}
+                alt="play audio icon"
+                onClick={handlePlayClick}
+              />
+              <div
+                className={playAnimationClass ? "controls__play-animation" : ""}
+              ></div>
+            </div>
+            <div className="controls__icon-container">
+              <img
+                className="controls__icon controls__icon--primary"
+                src={stopBtn}
+                alt="stop audio icon"
+                onClick={handleStopClick}
+              />
+            </div>
+            <div className="controls__icon-container">
+              <img
+                className="controls__icon controls__icon--secondary"
+                src={editBtn}
+                alt="save set icon"
+                onClick={handleEditClick}
+              />
+            </div>
           </div>
         </div>
       </section>

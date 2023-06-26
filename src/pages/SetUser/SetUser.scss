@@ -6,8 +6,12 @@
 .set {
   @include flex(column, center, center);
   height: 80vh;
-  // padding: 20vh 0 20vh 0;
   padding-top: 2.4rem;
+
+  @include media-tablet {
+    max-width: 108rem;
+    margin: 0 auto;
+  }
 
   &__title {
     margin-bottom: 2.4rem;
@@ -24,6 +28,10 @@
   margin-bottom: 0.8rem;
   padding-left: 1.6rem;
   color: $primary-color-1;
+
+  @include media-tablet {
+    padding-left: 3.2rem;
+  }
 
   &--1 {
     background-color: $sound-color-1;
@@ -68,7 +76,6 @@
 }
 
 .controls {
-  @include flex(row, space-evenly, center);
   height: 10vh;
   min-height: 8rem;
   width: 100%;
@@ -76,11 +83,21 @@
   background-color: $primary-color-5;
   padding: 1rem 0;
 
+  &__container {
+    @include flex(row, space-evenly, center);
+    width: 100%;
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
   &__icon {
     cursor: pointer;
 
     &--primary {
+      opacity: 75%;
+
       &:hover {
+        opacity: 100%;
         transform: scale(1.1);
       }
     }

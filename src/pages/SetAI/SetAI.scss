@@ -8,6 +8,11 @@
   height: 80vh;
   padding-top: 2.4rem;
 
+  @include media-tablet {
+    max-width: 108rem;
+    margin: 0 auto;
+  }
+
   &__title {
     margin-bottom: 2.4rem;
   }
@@ -25,6 +30,10 @@
   color: $primary-color-1;
   cursor: pointer;
   transition: left 0.25s ease;
+
+  @include media-tablet {
+    padding-left: 3.2rem;
+  }
 
   &:hover {
     filter: saturate(150%);
@@ -82,13 +91,19 @@
 }
 
 .controls {
-  @include flex(row, space-evenly, center);
   height: 10vh;
   min-height: 8rem;
   width: 100%;
   border-radius: 0.5rem;
   background-color: $primary-color-5;
   padding: 1rem 0;
+
+  &__container {
+    @include flex(row, space-evenly, center);
+    width: 100%;
+    max-width: 40rem;
+    margin: 0 auto;
+  }
 
   &__icon-container {
     position: relative;
@@ -98,7 +113,10 @@
     cursor: pointer;
 
     &--primary {
+      opacity: 75%;
+
       &:hover {
+        opacity: 100%;
         transform: scale(1.1);
       }
     }

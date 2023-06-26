@@ -341,47 +341,49 @@ const SetAI = ({ selectedGenre, genreData }) => {
           <img className="sound__add-icon" src={addSound} alt="plus icon" />
         </article>
         <div className="controls">
-          <div className="controls__icon-container">
-            <img
-              className="controls__icon controls__icon--secondary"
-              src={shuffleBtn}
-              alt="shuffle icon"
-              onClick={handleShuffleClick}
-            />
-          </div>
-          <div className="controls__icon-container">
-            <img
-              className="controls__icon controls__icon--primary"
-              src={resetBtn}
-              alt="reset audio icon"
-              onClick={handleResetClick}
-            />
-          </div>
-          <div className="controls__icon-container">
-            <img
-              className="controls__icon controls__icon--primary"
-              src={playBtn}
-              alt="play audio icon"
-              onClick={handlePlayClick}
-            />
-            <div
-              className={playAnimationClass ? "controls__play-animation" : ""}
-            ></div>
-          </div>
-          <div className="controls__icon-container">
-            <img
-              className="controls__icon controls__icon--primary"
-              src={stopBtn}
-              alt="stop audio icon"
-              onClick={handleStopClick}
-            />
-          </div>
-          <div className="controls__icon-container">
-            <img
-              className="controls__icon controls__icon--secondary"
-              src={saveBtn}
-              alt="save set icon"
-            />
+          <div className="controls__container">
+            <div className="controls__icon-container">
+              <img
+                className="controls__icon controls__icon--secondary"
+                src={shuffleBtn}
+                alt="shuffle icon"
+                onClick={handleShuffleClick}
+              />
+            </div>
+            <div className="controls__icon-container">
+              <img
+                className="controls__icon controls__icon--primary"
+                src={resetBtn}
+                alt="reset audio icon"
+                onClick={handleResetClick}
+              />
+            </div>
+            <div className="controls__icon-container">
+              <img
+                className="controls__icon controls__icon--primary"
+                src={playBtn}
+                alt="play audio icon"
+                onClick={handlePlayClick}
+              />
+              <div
+                className={playAnimationClass ? "controls__play-animation" : ""}
+              ></div>
+            </div>
+            <div className="controls__icon-container">
+              <img
+                className="controls__icon controls__icon--primary"
+                src={stopBtn}
+                alt="stop audio icon"
+                onClick={handleStopClick}
+              />
+            </div>
+            <div className="controls__icon-container">
+              <img
+                className="controls__icon controls__icon--secondary"
+                src={saveBtn}
+                alt="save set icon"
+              />
+            </div>
           </div>
         </div>
       </section>
