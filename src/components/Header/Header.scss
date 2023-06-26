@@ -3,7 +3,6 @@
 @use "../../styles/partials/mixins" as *;
 
 .header {
-  
   &__nav {
     @include flex(row, center, center);
   }
@@ -11,6 +10,10 @@
   &__nav-container {
     width: 33.3vh;
     display: flex;
+
+    @include media-tablet {
+      width: 40vh;
+    }
 
     &--left {
       justify-content: flex-start;

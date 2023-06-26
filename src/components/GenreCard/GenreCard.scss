@@ -13,17 +13,29 @@
   cursor: pointer;
   transition: 0.2s;
 
+  @include media-mobile {
+    width: 100%;
+  }
+
+  @include media-tablet {
+    width: 32.7%;
+  }
+
+  @include media-desktop {
+    width: 24.6%;
+  }
+
   &:hover {
     background-color: $primary-color-4;
   }
 
   &:hover .genre__title {
     color: $primary-color-2;
-  } 
+  }
 
   &:hover .genre__subtitle {
     color: $primary-color-3;
-  } 
+  }
 
   &__subtitle {
     color: $primary-color-4;
