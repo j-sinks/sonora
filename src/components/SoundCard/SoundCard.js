@@ -6,10 +6,10 @@ import {
 import "./SoundCard.scss";
 import playIcon from "../../assets/images/icons/play-white.svg";
 import moreInfo from "../../assets/images/icons/more-vertical-white.svg";
-import SetOptions from "../SetOptions/SetOptions";
+import SoundOptions from "../SoundOptions/SoundOptions";
 
-const SoundCard = ({ soundInfo, userId, handleSetDelete }) => {
-  const { name, type, subgenre, url } = soundInfo;
+const SoundCard = ({ soundInfo, userId, handleSoundDelete }) => {
+  const { id, name, type, subgenre, url } = soundInfo;
 
   const [audioElements, setAudioElements] = useState([]);
   const audioRefs = useRef([]);
@@ -81,14 +81,15 @@ const SoundCard = ({ soundInfo, userId, handleSetDelete }) => {
           preload="auto"
         ></audio>
       </article>
-      {/* <SetOptions
-        setId={id}
+      <SoundOptions
+        soundId={id}
         name={name}
+        url={url}
         userId={userId}
         optionsModalClass={optionsModalClass}
         resetOptionsModalClass={resetOptionsModalClass}
-        handleSetDelete={handleSetDelete}
-      /> */}
+        handleSoundDelete={handleSoundDelete}
+      />
     </>
   );
 };

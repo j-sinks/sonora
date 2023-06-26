@@ -1,35 +1,26 @@
 import { useState } from "react";
 import axios from "axios";
+import { splitOnUnderscore } from "../../utils/stringFormatting";
 import "./SoundOptions.scss";
-import editBtn from "../../assets/images/icons/edit-white.svg";
+import downloadBtn from "../../assets/images/icons/download-white.svg";
 import deleteBtn from "../../assets/images/icons/delete-1-white.svg";
-import EditSet from "../EditSet/EditSet";
 
 const SoundOptions = ({
-  setId,
+  soundId,
   name,
+  url,
   userId,
   optionsModalClass,
   resetOptionsModalClass,
-  handleSetDelete
+  handleSoundDelete,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const [editModalClass, setEditModalClass] = useState("");
-
-  const handleEditClick = () => {
-    setEditModalClass("edit-set--display");
-  };
-
-  const resetEditModalClass = () => {
-    setEditModalClass("");
-  };
-
-  // Deletes the selected set
-  const deleteSet = async () => {
+  // Deletes the selected sound
+  const deleteSound = async () => {
     try {
       axios.delete(
-        `${process.env.REACT_APP_API_URL}/profile/${userId}/sets/${setId}`
+        `${process.env.REACT_APP_API_URL}/profile/${userId}/sounds/${soundId}`
       );
     } catch (error) {
       console.log(`Error: ${error.message}`);
@@ -37,8 +28,8 @@ const SoundOptions = ({
   };
 
   const handleDeleteClick = () => {
-    deleteSet();
-    handleSetDelete(setId);
+    deleteSound();
+    handleSoundDelete(soundId);
     setIsVisible(true);
     resetOptionsModalClass();
     setIsVisible(false);
@@ -53,15 +44,23 @@ const SoundOptions = ({
   return (
     <article
       className={
-        !isVisible ? `set-options ${optionsModalClass}` : "set-options set-options--hide"
+        !isVisible
+          ? `set-options ${optionsModalClass}`
+          : "set-options set-options--hide"
       }
     >
-      <h1 className="set-options__title">{name}</h1>
+      <h1 className="set-options__title">{splitOnUnderscore(name)}</h1>
       <div className="set-options__container">
-        <button className="set-options__button" onClick={handleEditClick}>
-          <img className="set-options__icon" src={editBtn} alt="edit icon" />
+        <button className="set-options__button">
+          <a href={url} download>
+            <img
+              className="set-options__icon"
+              src={downloadBtn}
+              alt="download icon"
+            />
+          </a>
         </button>
-        <h2 className="set-options__text">Rename</h2>
+        <h2 className="set-options__text">Download</h2>
       </div>
       <div className="set-options__container">
         <button className="set-options__button" onClick={handleDeleteClick}>
@@ -78,12 +77,6 @@ const SoundOptions = ({
           Cancel
         </button>
       </div>
-      <EditSet
-        userId={userId}
-        setId={setId}
-        editModalClass={editModalClass}
-        resetEditModalClass={resetEditModalClass}
-      />
     </article>
   );
 };

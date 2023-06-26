@@ -28,9 +28,9 @@ const Sounds = () => {
     getSounds();
   }, []);
 
-  // const handleSetDelete = (setId) => {
-  //   setUserSounds(userSounds.filter((userSet) => userSet.id !== setId));
-  // };
+  const handleSoundDelete = (soundId) => {
+    setUserSounds(userSounds.filter((userSound) => userSound.id !== soundId));
+  };
 
   // Loading element while user sets state is undefined
   if (!userSounds) {
@@ -45,7 +45,7 @@ const Sounds = () => {
             key={userSound.id}
             soundInfo={userSound}
             userId={userId}
-            // handleSetDelete={handleSetDelete}
+            handleSoundDelete={handleSoundDelete}
           />
         ))}
       </section>
