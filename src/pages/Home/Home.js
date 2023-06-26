@@ -9,7 +9,7 @@ import playBtn from "../../assets/images/icons/play-button.svg";
 const Home = ({ handleSelectedGenre }) => {
   const [input, setInput] = useState("");
   const [inputIsTouched, setInputIsTouched] = useState(false);
-  
+
   const [sounds, setSounds] = useState(null);
   const [subgenres, setSubgenres] = useState(null);
 
@@ -32,7 +32,7 @@ const Home = ({ handleSelectedGenre }) => {
   };
 
   // Handles the form submit
-  // Prompt state in App.js is also updated which queries the model 
+  // Prompt state in App.js is also updated which queries the model
   const handleSubmit = (event) => {
     event.preventDefault();
     setInputIsTouched(true);
@@ -98,7 +98,8 @@ const Home = ({ handleSelectedGenre }) => {
 
   return (
     <main className="home">
-      <h1 className="home__title">Generate Set</h1>
+      <h1 className="home__title">Welcome to Sonora</h1>
+      <h2 className="home__subtitle">Generate AI Set</h2>
       <section className="prompt">
         <form
           className="prompt__form"
@@ -118,15 +119,15 @@ const Home = ({ handleSelectedGenre }) => {
             value={input}
           />
           {inputIsTouched && !isFormValid() && (
-                <small className="prompt__error">Genre is required</small>
-              )}
+            <small className="prompt__error">Genre is required</small>
+          )}
           <button className="prompt__button">
             <img src={playBtn} alt="play button" />
           </button>
         </form>
       </section>
       <section className="genres">
-        <h2 className="genres__title">Select Genre</h2>
+        <h2 className="genres__title">Select Style</h2>
         <div className="genres__container">
           {subgenres.map((subgenre) => (
             <GenreCard key={subgenre.id} genreInfo={subgenre} />

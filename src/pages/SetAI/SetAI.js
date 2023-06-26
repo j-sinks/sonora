@@ -132,7 +132,6 @@ const SetAI = ({ selectedGenre, genreData }) => {
     const allLoaded = loadedStates.every((state) => state);
     if (allLoaded) {
       audioElements.forEach((audio) => {
-        audio.volume = 1;
         audio.play();
         setPlayAnimationClass(true);
       });
@@ -210,7 +209,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound1.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            // autoPlay
+            autoPlay
             onCanPlayThrough={() => {
               setLoadedStates((prevStates) => {
                 const newStates = [...prevStates];
@@ -241,7 +240,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound2.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            // autoPlay
+            autoPlay
             onCanPlayThrough={() => {
               setLoadedStates((prevStates) => {
                 const newStates = [...prevStates];
@@ -272,7 +271,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound3.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            // autoPlay
+            autoPlay
             onCanPlayThrough={() => {
               setLoadedStates((prevStates) => {
                 const newStates = [...prevStates];
@@ -303,7 +302,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound4.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            // autoPlay
+            autoPlay
             onCanPlayThrough={() => {
               setLoadedStates((prevStates) => {
                 const newStates = [...prevStates];
@@ -342,7 +341,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
               onClick={handlePlayClick}
             />
             <div
-              className={playAnimationClass && "controls__play-animation"}
+              className={playAnimationClass ? "controls__play-animation" : ""}
             ></div>
           </div>
           <div className="controls__icon-container">

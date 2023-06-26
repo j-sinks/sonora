@@ -356,7 +356,7 @@ const Set = () => {
               onClick={handlePlayClick}
             />
             <div
-              className={playAnimationClass && "controls__play-animation"}
+              className={playAnimationClass ? "controls__play-animation" : ""}
             ></div>
           </div>
           <div className="controls__icon-container">
