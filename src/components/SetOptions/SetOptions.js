@@ -11,7 +11,7 @@ const SetOptions = ({
   userId,
   optionsModalClass,
   resetOptionsModalClass,
-  handleSetDelete
+  handleSetDelete,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -53,30 +53,34 @@ const SetOptions = ({
   return (
     <article
       className={
-        !isVisible ? `set-options ${optionsModalClass}` : "set-options set-options--hide"
+        !isVisible
+          ? `set-options ${optionsModalClass}`
+          : "set-options set-options--hide"
       }
     >
-      <h1 className="set-options__title">{name}</h1>
-      <div className="set-options__container">
-        <button className="set-options__button" onClick={handleEditClick}>
-          <img className="set-options__icon" src={editBtn} alt="edit icon" />
-        </button>
-        <h2 className="set-options__text">Rename</h2>
-      </div>
-      <div className="set-options__container">
-        <button className="set-options__button" onClick={handleDeleteClick}>
-          <img
-            className="set-options__icon"
-            src={deleteBtn}
-            alt="delete icon"
-          />
-        </button>
-        <h2 className="set-options__text">Delete</h2>
-      </div>
-      <div className="set-options__btn-container">
-        <button className="set-options__cancel" onClick={handleCancelClick}>
-          Cancel
-        </button>
+      <div className="set-options__top-container">
+        <h1 className="set-options__title">{name}</h1>
+        <div className="set-options__container">
+          <button className="set-options__button" onClick={handleEditClick}>
+            <img className="set-options__icon" src={editBtn} alt="edit icon" />
+          </button>
+          <h2 className="set-options__text">Rename</h2>
+        </div>
+        <div className="set-options__container">
+          <button className="set-options__button" onClick={handleDeleteClick}>
+            <img
+              className="set-options__icon"
+              src={deleteBtn}
+              alt="delete icon"
+            />
+          </button>
+          <h2 className="set-options__text">Delete</h2>
+        </div>
+        <div className="set-options__btn-container">
+          <button className="set-options__cancel" onClick={handleCancelClick}>
+            Cancel
+          </button>
+        </div>
       </div>
       <EditSet
         userId={userId}
