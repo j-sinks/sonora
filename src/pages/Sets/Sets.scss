@@ -3,6 +3,10 @@
 @use "../../styles/partials/mixins" as *;
 
 .sets {
+  @include media-tablet {
+    max-width: 108rem;
+    margin: 0 auto;
+  }
 
   &__title {
     padding: 2.4rem 0;
@@ -11,7 +15,7 @@
 
   &__genres-container {
     @include flex(column, space-between, null);
-    flex-wrap: wrap;  
+    flex-wrap: wrap;
   }
 
   &__link {
@@ -32,6 +36,6 @@
 
     &:hover .sets__link-title {
       color: $primary-color-3;
-    } 
+    }
   }
 }
