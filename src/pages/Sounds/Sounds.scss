@@ -1,3 +1,37 @@
 @use "../../styles/partials/typography";
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
+
+.sounds {
+
+  &__title {
+    padding: 2.4rem 0;
+    border-bottom: 0.2rem solid $primary-color-6;
+  }
+
+  &__genres-container {
+    @include flex(column, space-between, null);
+    flex-wrap: wrap;  
+  }
+
+  &__link {
+    @include flex(null, center, center);
+    height: 10vh;
+    min-height: 6.5rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    margin-top: 1.6rem;
+    color: $primary-color-1;
+    background-color: $primary-color-3;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: $primary-color-2;
+    }
+
+    &:hover .sets__link-title {
+      color: $primary-color-3;
+    } 
+  }
+}
