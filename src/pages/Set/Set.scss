@@ -27,7 +27,7 @@
   transition: left 0.25s ease;
 
   &:hover {
-    filter: saturate(150%);
+    filter: saturate(200%);
     left: -1.5rem;
   }
 
@@ -60,20 +60,20 @@
     background-color: $primary-color-6;
   }
 
-  &__more-icon {
+  &__like-icon {
     position: absolute;
-    top: 1rem;
+    top: 2rem;
     right: 2rem;
     cursor: pointer;
 
     &:hover {
       @include cta-hover(0.75, scale(1.25));
     }
+
+    &--shake {
+      animation: shake 0.4s linear;
+    }
   }
-
-  // &__info-container {
-
-  // }
 }
 
 .controls {

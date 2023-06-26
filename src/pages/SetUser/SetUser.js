@@ -7,7 +7,7 @@ import {
 } from "../../utils/stringFormatting";
 import "./SetUser.scss";
 import Loading from "../../components/Loading/Loading";
-import moreInfo from "../../assets/images/icons/more-horizontal-black.svg";
+import likeBtn from "../../assets/images/icons/heart-black.svg";
 import addSound from "../../assets/images/icons/plus-grey.svg";
 import shareBtn from "../../assets/images/icons/upload-white.svg";
 import playBtn from "../../assets/images/icons/play-button.svg";
@@ -28,6 +28,7 @@ const SetUser = () => {
   const [editModalClass, setEditModalClass] = useState("");
 
   const [playAnimationClass, setPlayAnimationClass] = useState(true);
+  const [isShaking, setIsShaking] = useState(false);
 
   const { userId, setId } = useParams();
 
@@ -39,6 +40,21 @@ const SetUser = () => {
       );
 
       setSavedSounds(response.data);
+    } catch (error) {
+      console.log(
+        `Error ${error.response.status}: ${error.response.data.message}`
+      );
+    }
+  };
+
+  const likeSound = async (soundId) => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/profile/${userId}/sounds`,
+        {
+          sound_id: soundId,
+        }
+      );
     } catch (error) {
       console.log(
         `Error ${error.response.status}: ${error.response.data.message}`
@@ -74,6 +90,14 @@ const SetUser = () => {
     setAudioElements(audioRefs.current);
     setMutedStates(new Array(audioRefs.current.length).fill(false));
   }, []);
+
+  const handleLikeClick = (soundId) => {
+    setIsShaking(true);
+    likeSound(soundId);
+    setTimeout(() => {
+      setIsShaking(false);
+    }, 1000);
+  };
 
   const handlePlayClick = () => {
     audioElements.forEach((audio) => {
@@ -136,11 +160,13 @@ const SetUser = () => {
           className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(0)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button className="sound__button" onClick={() => handleLikeClick(savedSounds[0].id)}>
+            <img
+              className={`sound__like-icon ${isShaking ? "sound__like-icon--shake" : ""}`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">{savedSounds[0].type.toUpperCase()}</h2>
             <h3 className="sound__name">
@@ -159,11 +185,13 @@ const SetUser = () => {
           className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(1)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button className="sound__button" onClick={() => handleLikeClick(savedSounds[1].id)}>
+            <img
+              className={`sound__like-icon ${isShaking ? "sound__like-icon--shake" : ""}`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">{savedSounds[1].type.toUpperCase()}</h2>
             <h3 className="sound__name">
@@ -182,11 +210,13 @@ const SetUser = () => {
           className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(2)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button className="sound__button" onClick={() => handleLikeClick(savedSounds[2].id)}>
+            <img
+              className={`sound__like-icon ${isShaking ? "sound__like-icon--shake" : ""}`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">{savedSounds[2].type.toUpperCase()}</h2>
             <h3 className="sound__name">
@@ -205,11 +235,13 @@ const SetUser = () => {
           className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(3)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button className="sound__button" onClick={() => handleLikeClick(savedSounds[3].id)}>
+            <img
+              className={`sound__like-icon ${isShaking ? "sound__like-icon--shake" : ""}`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">{savedSounds[3].type.toUpperCase()}</h2>
             <h3 className="sound__name">

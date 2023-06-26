@@ -60,7 +60,7 @@
     background-color: $primary-color-6;
   }
 
-  &__more-icon {
+  &__like-icon {
     position: absolute;
     top: 1rem;
     right: 2rem;
@@ -69,11 +69,11 @@
     &:hover {
       @include cta-hover(0.75, scale(1.25));
     }
+
+    &--shake {
+      animation: shake 0.4s linear;
+    }
   }
-
-  // &__info-container {
-
-  // }
 }
 
 .controls {

@@ -8,7 +8,7 @@ import {
 import { randomIndex } from "../../utils/math";
 import "./SetAI.scss";
 import Loading from "../../components/Loading/Loading";
-import moreInfo from "../../assets/images/icons/more-horizontal-black.svg";
+import likeBtn from "../../assets/images/icons/heart-black.svg";
 import addSound from "../../assets/images/icons/plus-grey.svg";
 import shuffleBtn from "../../assets/images/icons/ph_shuffle-fill-white.svg";
 import playBtn from "../../assets/images/icons/play-button.svg";
@@ -36,6 +36,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
   const [mutedStates, setMutedStates] = useState([]);
 
   const [playAnimationClass, setPlayAnimationClass] = useState(true);
+  const [isShaking, setIsShaking] = useState(false);
 
   // Requests intial sounds from API and sets into state.
   const getInitialSounds = async () => {
@@ -111,6 +112,13 @@ const SetAI = ({ selectedGenre, genreData }) => {
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const handleLikeClick = () => {
+    setIsShaking(true);
+    setTimeout(() => {
+      setIsShaking(false);
+    }, 1000);
   };
 
   const handleShuffleClick = () => {
@@ -193,11 +201,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(0)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button className="sound__button" onClick={handleLikeClick}>
+            <img
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">SOUND 1</h2>
             <h3 className="sound__name">
@@ -224,11 +236,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(1)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button className="sound__button" onClick={handleLikeClick}>
+            <img
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">SOUND 2</h2>
             <h3 className="sound__name">
@@ -255,11 +271,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(2)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button className="sound__button" onClick={handleLikeClick}>
+            <img
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">SOUND 3</h2>
             <h3 className="sound__name">
@@ -286,11 +306,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(3)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button className="sound__button" onClick={handleLikeClick}>
+            <img
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">SOUND 4</h2>
             <h3 className="sound__name">

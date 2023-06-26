@@ -8,7 +8,7 @@ import {
 import { randomIndex } from "../../utils/math";
 import "./Set.scss";
 import Loading from "../../components/Loading/Loading";
-import moreInfo from "../../assets/images/icons/more-horizontal-black.svg";
+import likeBtn from "../../assets/images/icons/heart-black.svg";
 import addSound from "../../assets/images/icons/plus-grey.svg";
 import shuffleBtn from "../../assets/images/icons/ph_shuffle-fill-white.svg";
 import playBtn from "../../assets/images/icons/play-button.svg";
@@ -31,6 +31,7 @@ const Set = () => {
   const [saveModalClass, setSaveModalClass] = useState("");
 
   const [playAnimationClass, setPlayAnimationClass] = useState(true);
+  const [isShaking, setIsShaking] = useState(false);
 
   const { subgenre } = useParams();
 
@@ -151,6 +152,29 @@ const Set = () => {
     }
   };
 
+  const likeSound = async (soundId) => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/profile/${process.env.REACT_APP_USER_ID}/sounds`,
+        {
+          sound_id: soundId,
+        }
+      );
+    } catch (error) {
+      console.log(
+        `Error ${error.response.status}: ${error.response.data.message}`
+      );
+    }
+  };
+
+  const handleLikeClick = (soundId) => {
+    setIsShaking(true);
+    likeSound(soundId);
+    setTimeout(() => {
+      setIsShaking(false);
+    }, 1000);
+  };
+
   const handleShuffleClick = () => {
     getInitialSounds();
   };
@@ -248,11 +272,18 @@ const Set = () => {
           className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(0)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button
+            className="sound__button"
+            onClick={() => handleLikeClick(drums.id)}
+          >
+            <img
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">{drums.type.toUpperCase()}</h2>
             <h3 className="sound__name">{splitOnUnderscore(drums.name)}</h3>
@@ -269,11 +300,18 @@ const Set = () => {
           className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(1)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button
+            className="sound__button"
+            onClick={() => handleLikeClick(harmony.id)}
+          >
+            <img
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">{harmony.type.toUpperCase()}</h2>
             <h3 className="sound__name">{splitOnUnderscore(harmony.name)}</h3>
@@ -290,11 +328,18 @@ const Set = () => {
           className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(2)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button
+            className="sound__button"
+            onClick={() => handleLikeClick(bass.id)}
+          >
+            <img
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">{bass.type.toUpperCase()}</h2>
             <h3 className="sound__name">{splitOnUnderscore(bass.name)}</h3>
@@ -311,11 +356,18 @@ const Set = () => {
           className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(3)}
         >
-          <img
-            className="sound__more-icon"
-            src={moreInfo}
-            alt="more info icon"
-          />
+          <button
+            className="sound__button"
+            onClick={() => handleLikeClick(synth.id)}
+          >
+            <img
+              className={`sound__like-icon ${
+                isShaking ? "sound__like-icon--shake" : ""
+              }`}
+              src={likeBtn}
+              alt="like icon"
+            />
+          </button>
           <div className="sound__info-container">
             <h2 className="sound__type">{synth.type.toUpperCase()}</h2>
             <h3 className="sound__name">{splitOnUnderscore(synth.name)}</h3>

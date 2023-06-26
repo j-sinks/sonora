@@ -1,6 +1,7 @@
 @use "../../styles/partials/typography";
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/animations";
 
 .set {
   @include flex(column, center, center);
@@ -45,21 +46,20 @@
     background-color: $primary-color-6;
   }
 
-  &__more-icon {
+  &__like-icon {
     position: absolute;
-    top: 1rem;
+    top: 2rem;
     right: 2rem;
     cursor: pointer;
 
     &:hover {
       @include cta-hover(0.75, scale(1.25));
     }
+
+    &--shake {
+      animation: shake 0.4s linear;
+    }
   }
-
-  // &__info-container {
-
-  // }
-
 }
 
 .controls {
@@ -75,18 +75,15 @@
     cursor: pointer;
 
     &--primary {
-
       &:hover {
         transform: scale(1.1);
       }
     }
 
     &--secondary {
-
       &:hover {
         @include cta-hover(0.9, scale(1.3));
       }
     }
-
   }
 }
