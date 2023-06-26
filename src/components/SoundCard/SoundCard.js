@@ -45,7 +45,7 @@ const SoundCard = ({ soundInfo, userId, handleSoundDelete }) => {
 
   const handleOptionsClick = (event) => {
     event.stopPropagation();
-    setOptionsModalClass("set-options--display");
+    setOptionsModalClass("sound-options--display");
   };
 
   const resetOptionsModalClass = () => {

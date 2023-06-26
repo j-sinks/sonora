@@ -45,35 +45,35 @@ const SoundOptions = ({
     <article
       className={
         !isVisible
-          ? `set-options ${optionsModalClass}`
-          : "set-options set-options--hide"
+          ? `sound-options ${optionsModalClass}`
+          : "sound-options sound-options--hide"
       }
     >
-      <h1 className="set-options__title">{splitOnUnderscore(name)}</h1>
-      <div className="set-options__container">
-        <button className="set-options__button">
+      <h1 className="sound-options__title">{splitOnUnderscore(name)}</h1>
+      <div className="sound-options__container">
+        <button className="sound-options__button">
           <a href={url} download>
             <img
-              className="set-options__icon"
+              className="sound-options__icon"
               src={downloadBtn}
               alt="download icon"
             />
           </a>
         </button>
-        <h2 className="set-options__text">Download</h2>
+        <h2 className="sound-options__text">Download</h2>
       </div>
-      <div className="set-options__container">
-        <button className="set-options__button" onClick={handleDeleteClick}>
+      <div className="sound-options__container">
+        <button className="sound-options__button" onClick={handleDeleteClick}>
           <img
-            className="set-options__icon"
+            className="sound-options__icon"
             src={deleteBtn}
             alt="delete icon"
           />
         </button>
-        <h2 className="set-options__text">Delete</h2>
+        <h2 className="sound-options__text">Delete</h2>
       </div>
-      <div className="set-options__btn-container">
-        <button className="set-options__cancel" onClick={handleCancelClick}>
+      <div className="sound-options__btn-container">
+        <button className="sound-options__cancel" onClick={handleCancelClick}>
           Cancel
         </button>
       </div>

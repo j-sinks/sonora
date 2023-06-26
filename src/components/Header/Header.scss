@@ -43,4 +43,8 @@
   &:hover {
     @include cta-hover(0.9, scale(1.33));
   }
+
+  &--right {
+    margin-left: 1.6rem;
+  }
 }
