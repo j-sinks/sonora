@@ -168,7 +168,8 @@ const Set = () => {
     }
   };
 
-  // Handles the like button click and updates state to trigger animation
+  // Handles the like button click, updates state to trigger animation
+  // prevents event bubbling to parent elements
   const handleLikeClick = (e, soundId) => {
     e.stopPropagation();
 
@@ -211,19 +212,34 @@ const Set = () => {
     });
   };
 
-  // Handles reset click by pausing, resetting time to 0, and playing for all audio,
+  // Handles reset click by resetting time to 0, and playing for all audio,
   // plus updates state to trigger animation
   const handleResetClick = () => {
     audioElements.forEach((audio) => {
-      audio.pause();
       audio.currentTime = 0;
       audio.play();
       setPlayAnimationClass(true);
     });
   };
 
-  // Handles mute click for each audio element, based on the index of the audio element
-  // set in state, if audio is not muted volume is set to 0, and visa versa
+  // Defines volume for each audio element
+  const indexVolume = (index) => {
+    switch (index) {
+      case 0:
+        return 0.95;
+      case 1:
+        return 0.5;
+      case 2:
+        return 0.9;
+      case 3:
+        return 0.25;
+      default:
+        return 0.95;
+    }
+  };
+
+  // Handles mute click for each audio element, based on the index of the audio element set in state,
+  // if audio is not muted volume is set to 0, if muted the audio is set to the defined volume
   const handleMuteClick = (index) => {
     const audio = audioElements[index];
     const currentMutedStates = [...mutedStates];
@@ -231,20 +247,31 @@ const Set = () => {
     setMutedStates(currentMutedStates);
 
     if (currentMutedStates[index]) {
+      audio.muted = true;
       audio.volume = 0;
     } else {
-      audio.volume = 1;
+      audio.muted = false;
+      audio.volume = indexVolume(index);
     }
   };
 
+  // Handles each respective audio ref and sets the predefined volume based on index
   const handleAudioRef = (index, ref) => {
     audioRefs.current[index] = ref;
+
+    if (ref) {
+      const volume = indexVolume(index);
+      ref.volume = volume;
+    }
   };
 
+  // Sets the display modal class when the save button is clicked
   const handleSaveClick = () => {
     setSaveModalClass("save-set--display");
   };
 
+  // Resets the modal class so the display class is removed when closes,
+  //allows for the modal to be re-clicked
   const resetSaveModalClass = () => {
     setSaveModalClass("");
   };

@@ -19,6 +19,9 @@ import saveBtn from "../../assets/images/icons/save-white.svg";
 const SetAI = ({ selectedGenre, genreData }) => {
   const { instruments, bpm } = genreData;
 
+  const setSelectedGenre = useState(selectedGenre)[1];
+  const setGenreData = useState(genreData)[1];
+
   const [sound1, setSound1] = useState(null);
   const [sound2, setSound2] = useState(null);
   const [sound3, setSound3] = useState(null);
@@ -27,20 +30,20 @@ const SetAI = ({ selectedGenre, genreData }) => {
   const [audioElements, setAudioElements] = useState([]);
   const audioRefs = useRef([]);
 
-  const [loadedStates, setLoadedStates] = useState([
-    false,
-    false,
-    false,
-    false,
-  ]);
+  // const [loadedStates, setLoadedStates] = useState([
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  // ]);
   const [mutedStates, setMutedStates] = useState([]);
 
-  const [playAnimationClass, setPlayAnimationClass] = useState(true);
+  const [playAnimationClass, setPlayAnimationClass] = useState(false);
   const [isShaking, setIsShaking] = useState(false);
 
   // Requests intial sounds from API and sets into state.
   const getInitialSounds = async () => {
-    const pageSize = "page_size=50";
+    const pageSize = "page_size=100";
     const duration = "duration:[5.0 TO 60.0]";
     const tonality = 'ac_tonality:"C minor"';
     const tempo = `ac_tempo:[${bpm}]`;
@@ -114,6 +117,8 @@ const SetAI = ({ selectedGenre, genreData }) => {
     }
   };
 
+  // Handles the like button click, updates state to trigger animation
+  // prevents event bubbling to parent elements
   const handleLikeClick = (e) => {
     e.stopPropagation();
 
@@ -123,13 +128,31 @@ const SetAI = ({ selectedGenre, genreData }) => {
     }, 1000);
   };
 
+  // Handles the shuffle click and calls the get sounds function
   const handleShuffleClick = () => {
+    audioElements.forEach((audio) => {
+      audio.pause();
+      setPlayAnimationClass(false);
+    });
+
     getInitialSounds();
   };
 
   // Re-render page based on the subgenre param
+  // Perform cleanup operations to reset props and sound states when leaving the page
+  // This is to prevent previous sounds from displaying on mount when a new genre is inputted
   useEffect(() => {
     getInitialSounds();
+
+    return () => {
+      setSelectedGenre(null);
+      setGenreData({});
+
+      setSound1(null);
+      setSound2(null);
+      setSound3(null);
+      setSound4(null);
+    };
   }, [instruments]);
 
   // Update the audio ref when the component is rendered
@@ -139,24 +162,22 @@ const SetAI = ({ selectedGenre, genreData }) => {
   }, []);
 
   // Update the audio ref and mute states when the component is rendered
-  const playAllAudio = () => {
-    const allLoaded = loadedStates.every((state) => state);
-    if (allLoaded) {
-      audioElements.forEach((audio) => {
-        audio.play();
-        setPlayAnimationClass(true);
-      });
-    }
-  };
+  // const playAllAudio = () => {
+  //   const allLoaded = loadedStates.every((state) => state);
+  //   if (allLoaded) {
+  //     audioElements.forEach((audio) => {
+  //       audio.play();
+  //       setPlayAnimationClass(true);
+  //     });
+  //   }
+  // };
 
   // Handles play click by playing all audio updates state to trigger animation
   const handlePlayClick = () => {
-    if (loadedStates.every((state) => state)) {
-      audioElements.forEach((audio) => {
-        audio.play();
-        setPlayAnimationClass(true);
-      });
-    }
+    audioElements.forEach((audio) => {
+      audio.play();
+      setPlayAnimationClass(true);
+    });
   };
 
   // Handles stop click by pausing all audio updates state to remove animation
@@ -167,19 +188,18 @@ const SetAI = ({ selectedGenre, genreData }) => {
     });
   };
 
-  // Handles reset click by pausing, resetting time to 0, and playing for all audio,
+  // Handles reset click by resetting time to 0, and playing for all audio,
   // plus updates state to trigger animation
   const handleResetClick = () => {
     audioElements.forEach((audio) => {
-      audio.pause();
       audio.currentTime = 0;
       audio.play();
       setPlayAnimationClass(true);
     });
   };
 
-  // Handles mute click for each audio element, based on the index of the audio element
-  // set in state, if audio is not muted volume is set to 0, and visa versa
+  // Handles mute click for each audio element if audio is not muted volume is set to 0,
+  // if muted the audio is set to the defined volume
   const handleMuteClick = (index) => {
     const audio = audioElements[index];
     const currentMutedStates = [...mutedStates];
@@ -189,12 +209,17 @@ const SetAI = ({ selectedGenre, genreData }) => {
     if (currentMutedStates[index]) {
       audio.volume = 0;
     } else {
-      audio.volume = 1;
+      audio.volume = 0.5;
     }
   };
 
+  // Handles each respective audio ref and sets the predefined volume
   const handleAudioRef = (index, ref) => {
     audioRefs.current[index] = ref;
+
+    if (ref) {
+      ref.volume = 0.5;
+    }
   };
 
   // Loading element while any sound state is null, or sounds are not fully loaded
@@ -230,15 +255,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound1.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            autoPlay
-            onCanPlayThrough={() => {
-              setLoadedStates((prevStates) => {
-                const newStates = [...prevStates];
-                newStates[0] = true;
-                return newStates;
-              });
-              playAllAudio();
-            }}
+            // autoPlay
+            // onCanPlayThrough={() => {
+            //   setLoadedStates((prevStates) => {
+            //     const newStates = [...prevStates];
+            //     newStates[0] = true;
+            //     return newStates;
+            //   });
+            //   playAllAudio();
+            // }}
           ></audio>
         </article>
         <article
@@ -265,15 +290,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound2.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            autoPlay
-            onCanPlayThrough={() => {
-              setLoadedStates((prevStates) => {
-                const newStates = [...prevStates];
-                newStates[1] = true;
-                return newStates;
-              });
-              playAllAudio();
-            }}
+            // autoPlay
+            // onCanPlayThrough={() => {
+            //   setLoadedStates((prevStates) => {
+            //     const newStates = [...prevStates];
+            //     newStates[1] = true;
+            //     return newStates;
+            //   });
+            //   playAllAudio();
+            // }}
           ></audio>
         </article>
         <article
@@ -300,15 +325,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound3.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            autoPlay
-            onCanPlayThrough={() => {
-              setLoadedStates((prevStates) => {
-                const newStates = [...prevStates];
-                newStates[2] = true;
-                return newStates;
-              });
-              playAllAudio();
-            }}
+            // autoPlay
+            // onCanPlayThrough={() => {
+            //   setLoadedStates((prevStates) => {
+            //     const newStates = [...prevStates];
+            //     newStates[2] = true;
+            //     return newStates;
+            //   });
+            //   playAllAudio();
+            // }}
           ></audio>
         </article>
         <article
@@ -335,15 +360,15 @@ const SetAI = ({ selectedGenre, genreData }) => {
             src={sound4.previews["preview-hq-mp3"]}
             loop
             preload="auto"
-            autoPlay
-            onCanPlayThrough={() => {
-              setLoadedStates((prevStates) => {
-                const newStates = [...prevStates];
-                newStates[3] = true;
-                return newStates;
-              });
-              playAllAudio();
-            }}
+            // autoPlay
+            // onCanPlayThrough={() => {
+            //   setLoadedStates((prevStates) => {
+            //     const newStates = [...prevStates];
+            //     newStates[3] = true;
+            //     return newStates;
+            //   });
+            //   playAllAudio();
+            // }}
           ></audio>
         </article>
         <article className="sound sound--add">
