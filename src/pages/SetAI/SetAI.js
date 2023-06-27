@@ -114,7 +114,9 @@ const SetAI = ({ selectedGenre, genreData }) => {
     }
   };
 
-  const handleLikeClick = () => {
+  const handleLikeClick = (e) => {
+    e.stopPropagation();
+
     setIsShaking(true);
     setTimeout(() => {
       setIsShaking(false);
@@ -208,7 +210,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(0)}
         >
-          <button className="sound__button" onClick={handleLikeClick}>
+          <button className="sound__button" onClick={(e) => handleLikeClick(e)}>
             <img
               className={`sound__like-icon ${
                 isShaking ? "sound__like-icon--shake" : ""
@@ -243,7 +245,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(1)}
         >
-          <button className="sound__button" onClick={handleLikeClick}>
+          <button className="sound__button" onClick={(e) => handleLikeClick(e)}>
             <img
               className={`sound__like-icon ${
                 isShaking ? "sound__like-icon--shake" : ""
@@ -278,7 +280,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(2)}
         >
-          <button className="sound__button" onClick={handleLikeClick}>
+          <button className="sound__button" onClick={(e) => handleLikeClick(e)}>
             <img
               className={`sound__like-icon ${
                 isShaking ? "sound__like-icon--shake" : ""
@@ -313,7 +315,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(3)}
         >
-          <button className="sound__button" onClick={handleLikeClick}>
+          <button className="sound__button" onClick={(e) => handleLikeClick(e)}>
             <img
               className={`sound__like-icon ${
                 isShaking ? "sound__like-icon--shake" : ""

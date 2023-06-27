@@ -91,7 +91,9 @@ const SetUser = () => {
     setMutedStates(new Array(audioRefs.current.length).fill(false));
   }, []);
 
-  const handleLikeClick = (soundId) => {
+  const handleLikeClick = (e, soundId) => {
+    e.stopPropagation();
+    
     setIsShaking(true);
     likeSound(soundId);
     setTimeout(() => {
@@ -168,7 +170,7 @@ const SetUser = () => {
         >
           <button
             className="sound__button"
-            onClick={() => handleLikeClick(savedSounds[0].id)}
+            onClick={(e) => handleLikeClick(e, savedSounds[0].id)}
           >
             <img
               className={`sound__like-icon ${
@@ -198,7 +200,7 @@ const SetUser = () => {
         >
           <button
             className="sound__button"
-            onClick={() => handleLikeClick(savedSounds[1].id)}
+            onClick={(e) => handleLikeClick(e, savedSounds[1].id)}
           >
             <img
               className={`sound__like-icon ${
@@ -228,7 +230,7 @@ const SetUser = () => {
         >
           <button
             className="sound__button"
-            onClick={() => handleLikeClick(savedSounds[2].id)}
+            onClick={(e) => handleLikeClick(e, savedSounds[2].id)}
           >
             <img
               className={`sound__like-icon ${
@@ -258,7 +260,7 @@ const SetUser = () => {
         >
           <button
             className="sound__button"
-            onClick={() => handleLikeClick(savedSounds[3].id)}
+            onClick={(e) => handleLikeClick(e, savedSounds[3].id)}
           >
             <img
               className={`sound__like-icon ${

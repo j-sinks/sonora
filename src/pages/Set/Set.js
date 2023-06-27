@@ -169,7 +169,9 @@ const Set = () => {
   };
 
   // Handles the like button click and updates state to trigger animation
-  const handleLikeClick = (soundId) => {
+  const handleLikeClick = (e, soundId) => {
+    e.stopPropagation();
+
     setIsShaking(true);
     likeSound(soundId);
     setTimeout(() => {
@@ -262,7 +264,7 @@ const Set = () => {
         >
           <button
             className="sound__button"
-            onClick={() => handleLikeClick(drums.id)}
+            onClick={(e) => handleLikeClick(e, drums.id)}
           >
             <img
               className={`sound__like-icon ${
@@ -290,7 +292,7 @@ const Set = () => {
         >
           <button
             className="sound__button"
-            onClick={() => handleLikeClick(harmony.id)}
+            onClick={(e) => handleLikeClick(e, harmony.id)}
           >
             <img
               className={`sound__like-icon ${
@@ -318,7 +320,7 @@ const Set = () => {
         >
           <button
             className="sound__button"
-            onClick={() => handleLikeClick(bass.id)}
+            onClick={(e) => handleLikeClick(e, bass.id)}
           >
             <img
               className={`sound__like-icon ${
@@ -346,7 +348,7 @@ const Set = () => {
         >
           <button
             className="sound__button"
-            onClick={() => handleLikeClick(synth.id)}
+            onClick={(e) => handleLikeClick(e, synth.id)}
           >
             <img
               className={`sound__like-icon ${
