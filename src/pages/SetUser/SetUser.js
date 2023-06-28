@@ -234,6 +234,7 @@ const SetUser = () => {
           className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(0)}
         >
+          <div className={playAnimationClass ? "sound__overlay sound__overlay--1" : ""}></div>
           <button
             className="sound__button"
             onClick={(e) => handleLikeClick(e, savedSounds[0].id)}
@@ -264,6 +265,7 @@ const SetUser = () => {
           className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(1)}
         >
+          <div className={playAnimationClass ? "sound__overlay sound__overlay--2" : ""}></div>
           <button
             className="sound__button"
             onClick={(e) => handleLikeClick(e, savedSounds[1].id)}
@@ -294,6 +296,7 @@ const SetUser = () => {
           className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(2)}
         >
+          <div className={playAnimationClass ? "sound__overlay sound__overlay--3" : ""}></div>
           <button
             className="sound__button"
             onClick={(e) => handleLikeClick(e, savedSounds[2].id)}
@@ -324,6 +327,7 @@ const SetUser = () => {
           className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(3)}
         >
+          <div className={playAnimationClass ? "sound__overlay sound__overlay--4" : ""}></div>
           <button
             className="sound__button"
             onClick={(e) => handleLikeClick(e, savedSounds[3].id)}

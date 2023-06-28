@@ -258,6 +258,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(0)}
         >
+          <div className={playAnimationClass ? "sound__overlay sound__overlay--1" : ""}></div>
           <button className="sound__button" onClick={(e) => handleLikeClick(e)}>
             <img
               className={`sound__like-icon ${
@@ -293,6 +294,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(1)}
         >
+          <div className={playAnimationClass ? "sound__overlay sound__overlay--2" : ""}></div>
           <button className="sound__button" onClick={(e) => handleLikeClick(e)}>
             <img
               className={`sound__like-icon ${
@@ -328,6 +330,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(2)}
         >
+          <div className={playAnimationClass ? "sound__overlay sound__overlay--3" : ""}></div>
           <button className="sound__button" onClick={(e) => handleLikeClick(e)}>
             <img
               className={`sound__like-icon ${
@@ -363,6 +366,7 @@ const SetAI = ({ selectedGenre, genreData }) => {
           className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(3)}
         >
+          <div className={playAnimationClass ? "sound__overlay sound__overlay--4" : ""}></div>
           <button className="sound__button" onClick={(e) => handleLikeClick(e)}>
             <img
               className={`sound__like-icon ${
