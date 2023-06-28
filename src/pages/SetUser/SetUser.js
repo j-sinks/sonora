@@ -13,8 +13,9 @@ import shareBtn from "../../assets/images/icons/upload-white.svg";
 import playBtn from "../../assets/images/icons/play-button.svg";
 import stopBtn from "../../assets/images/icons/stop-button.svg";
 import resetBtn from "../../assets/images/icons/reset-button.svg";
-import editBtn from "../../assets/images/icons/edit-white.svg";
+import editBtn from "../../assets/images/icons/edit-grey.svg";
 import EditSet from "../../components/EditSet/EditSet";
+import downloadBtn from "../../assets/images/icons/download-white.svg";
 
 const SetUser = () => {
   const [savedSounds, setSavedSounds] = useState([]);
@@ -183,15 +184,52 @@ const SetUser = () => {
     setEditModalClass("");
   };
 
+  // Handles download all button click  userSounds is mapped to create a sound resource
+  // for each url which is converted to blob to allow for cross origin download
+  const handleDownloadAll = async () => {
+    try {
+      const downloadPromises = savedSounds.map(async (sound) => {
+        const response = await fetch(sound.url);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = sound.name;
+        link.click();
+        window.URL.revokeObjectURL(url);
+      });
+
+      await Promise.all(downloadPromises);
+    } catch (error) {
+      console.log(`Error:, ${error.message}`);
+    }
+  };
+
   // Loading element while any sound state is null
-  if (!savedSounds || !setData) {
+  if (
+    !savedSounds[0] ||
+    !savedSounds[1] ||
+    !savedSounds[2] ||
+    !savedSounds[3] ||
+    !setData
+  ) {
     return <Loading />;
   }
 
   return (
     <main>
       <section className="set">
-        <h1 className="set__title">{formattedSubgenre(setData.name)}</h1>
+        <div className="set__title-container">
+          <h1 className="set__title">{formattedSubgenre(setData.name)}</h1>
+          <button className="set__button">
+            <img
+              className="set__icon"
+              src={editBtn}
+              alt="rename set"
+              onClick={handleEditClick}
+            />
+          </button>
+        </div>
         <article
           className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(0)}
@@ -354,9 +392,9 @@ const SetUser = () => {
             <div className="controls__icon-container">
               <img
                 className="controls__icon controls__icon--secondary"
-                src={editBtn}
+                src={downloadBtn}
                 alt="save set icon"
-                onClick={handleEditClick}
+                onClick={handleDownloadAll}
               />
             </div>
           </div>

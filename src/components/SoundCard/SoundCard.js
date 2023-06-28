@@ -5,6 +5,7 @@ import {
 } from "../../utils/stringFormatting";
 import "./SoundCard.scss";
 import playIcon from "../../assets/images/icons/play-white.svg";
+import StopIcon from "../../assets/images/icons/stop-white.svg";
 import moreInfo from "../../assets/images/icons/more-vertical-white.svg";
 import SoundOptions from "../SoundOptions/SoundOptions";
 
@@ -58,7 +59,7 @@ const SoundCard = ({ soundInfo, userId, handleSoundDelete }) => {
         <button className="sound-card__button">
           <img
             className="play-icon"
-            src={playIcon}
+            src={playAnimationClass ? StopIcon : playIcon}
             alt="play icon"
             onClick={() => handlePlayClick(0)}
           />

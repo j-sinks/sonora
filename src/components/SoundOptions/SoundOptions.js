@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { splitOnUnderscore } from "../../utils/stringFormatting";
 import "./SoundOptions.scss";
@@ -15,6 +15,29 @@ const SoundOptions = ({
   handleSoundDelete,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+
+  const [downloadUrl, setDownloadUrl] = useState("");
+
+  // On render get the sound resource and convert to blob to allow for cross origin download
+  // When the compenent is unmounted the resource is removed via a clean-up function
+  useEffect(() => {
+    const GetSoundFile = async () => {
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        setDownloadUrl(blobUrl);
+      } catch (error) {
+        console.log(`Error:, ${error.message}`);
+      }
+    };
+
+    GetSoundFile();
+
+    return () => {
+      URL.revokeObjectURL(downloadUrl);
+    };
+  }, [url]);
 
   // Deletes the selected sound
   const deleteSound = async () => {
@@ -53,7 +76,7 @@ const SoundOptions = ({
         <h1 className="sound-options__title">{splitOnUnderscore(name)}</h1>
         <div className="sound-options__container">
           <button className="sound-options__button">
-            <a href={url} download>
+            <a href={downloadUrl} download={name}>
               <img
                 className="sound-options__icon"
                 src={downloadBtn}

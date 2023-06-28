@@ -38,6 +38,10 @@
   &:hover {
     filter: saturate(200%);
     left: -1.5rem;
+
+    @include media-desktop {
+      left: -2.5rem;
+    }
   }
 
   &--muted {

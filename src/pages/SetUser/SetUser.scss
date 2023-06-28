@@ -13,8 +13,30 @@
     margin: 0 auto;
   }
 
+  &__title-container {
+    position: relative;
+  }
+
   &__title {
     margin-bottom: 2.4rem;
+  }
+
+  &__button {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    cursor: pointer;
+    top: 12%;
+    right: -2.8rem;
+
+    @include media-tablet {
+      top: 16%;
+      right: -3.2rem;
+    }
+
+    &:hover {
+      @include cta-hover(0.9, scale(1.2));
+    }
   }
 }
 

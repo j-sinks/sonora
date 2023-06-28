@@ -66,6 +66,7 @@ const Home = ({ handleSelectedGenre }) => {
 
   // Uses the sounds state to create a new array which is a subset of the data
   // Following this, a new array is created containing only unique subgenre values
+  // which is sorted in alphabetical order
   // The resulting array is then used to generate genre card components
   const getSubgenres = (sounds) => {
     const genreInfo = sounds.map((sound) => ({
@@ -82,6 +83,8 @@ const Home = ({ handleSelectedGenre }) => {
       );
       return { id, subgenre, genre };
     });
+
+    uniqueSubgenres.sort((a, b) => a.subgenre.localeCompare(b.subgenre));
 
     setSubgenres(uniqueSubgenres);
   };

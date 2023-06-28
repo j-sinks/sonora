@@ -14,7 +14,7 @@ import shuffleBtn from "../../assets/images/icons/ph_shuffle-fill-white.svg";
 import playBtn from "../../assets/images/icons/play-button.svg";
 import stopBtn from "../../assets/images/icons/stop-button.svg";
 import resetBtn from "../../assets/images/icons//reset-button.svg";
-import saveBtn from "../../assets/images/icons/save-white.svg";
+import downloadBtn from "../../assets/images/icons/download-white.svg";
 
 const SetAI = ({ selectedGenre, genreData }) => {
   const { instruments, bpm } = genreData;
@@ -26,6 +26,8 @@ const SetAI = ({ selectedGenre, genreData }) => {
   const [sound2, setSound2] = useState(null);
   const [sound3, setSound3] = useState(null);
   const [sound4, setSound4] = useState(null);
+
+  const sounds = [sound1, sound2, sound3, sound4];
 
   const [audioElements, setAudioElements] = useState([]);
   const audioRefs = useRef([]);
@@ -222,6 +224,27 @@ const SetAI = ({ selectedGenre, genreData }) => {
     }
   };
 
+  // Handles download all button click  userSounds is mapped to create a sound resource
+  // for each url which is converted to blob to allow for cross origin download
+  const handleDownloadAll = async () => {
+    try {
+      const downloadPromises = sounds.map(async (sound) => {
+        const response = await fetch(sound.url);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = sound.name;
+        link.click();
+        window.URL.revokeObjectURL(url);
+      });
+
+      await Promise.all(downloadPromises);
+    } catch (error) {
+      console.log(`Error:, ${error.message}`);
+    }
+  };
+
   // Loading element while any sound state is null, or sounds are not fully loaded
   if (!sound1 || !sound2 || !sound3 || !sound4) {
     return <Loading />;
@@ -414,8 +437,9 @@ const SetAI = ({ selectedGenre, genreData }) => {
             <div className="controls__icon-container">
               <img
                 className="controls__icon controls__icon--secondary"
-                src={saveBtn}
-                alt="save set icon"
+                src={downloadBtn}
+                alt="download all sounds"
+                onClick={handleDownloadAll}
               />
             </div>
           </div>

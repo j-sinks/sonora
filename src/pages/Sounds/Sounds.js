@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Sounds.scss";
 import Loading from "../../components/Loading/Loading";
 import SoundCard from "../../components/SoundCard/SoundCard";
+import downloadBtn from "../../assets/images/icons/download-white.svg";
 
 const Sounds = () => {
   const [userSounds, setUserSounds] = useState([]);
@@ -28,6 +29,27 @@ const Sounds = () => {
     getSounds();
   }, []);
 
+  // Handles download all button click  userSounds is mapped to create a sound resource
+  // for each url which is converted to blob to allow for cross origin download
+  const handleDownloadAll = async () => {
+    try {
+      const downloadPromises = userSounds.map(async (sound) => {
+        const response = await fetch(sound.url);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = sound.name;
+        link.click();
+        window.URL.revokeObjectURL(url);
+      });
+
+      await Promise.all(downloadPromises);
+    } catch (error) {
+      console.log(`Error:, ${error.message}`);
+    }
+  };
+
   const handleSoundDelete = (soundId) => {
     setUserSounds(userSounds.filter((userSound) => userSound.id !== soundId));
   };
@@ -38,7 +60,12 @@ const Sounds = () => {
   }
   return (
     <main className="sounds">
-      <h1 className="sounds__title">Your Sounds</h1>
+      <div className="sounds__title-container">
+        <h1 className="sounds__title">Your Sounds</h1>
+        <button className="sounds__button" onClick={handleDownloadAll}>
+          <img src={downloadBtn} alt="download all liked sounds" />
+        </button>
+      </div>
       <section className="sounds_container">
         {userSounds.map((userSound) => (
           <SoundCard

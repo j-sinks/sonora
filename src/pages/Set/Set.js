@@ -31,7 +31,12 @@ const Set = () => {
   const [saveModalClass, setSaveModalClass] = useState("");
 
   const [playAnimationClass, setPlayAnimationClass] = useState(true);
-  const [isShaking, setIsShaking] = useState(false);
+
+  const [isShakingDrums, setIsShakingDrums] = useState(false);
+  const [isShakingHarm, setIsShakingHarm] = useState(false);
+  const [isShakingBass, setIsShakingBass] = useState(false);
+  const [isShakingSynth, setIsShakingSynth] = useState(false);
+
 
   const { subgenre } = useParams();
 
@@ -170,13 +175,44 @@ const Set = () => {
 
   // Handles the like button click, updates state to trigger animation
   // prevents event bubbling to parent elements
-  const handleLikeClick = (e, soundId) => {
+  // These are duplicated until a sound component is created
+  const handleLikeClickDrums = (e, soundId) => {
     e.stopPropagation();
 
-    setIsShaking(true);
+    setIsShakingDrums(true);
     likeSound(soundId);
     setTimeout(() => {
-      setIsShaking(false);
+      setIsShakingDrums(false);
+    }, 1000);
+  };
+
+  const handleLikeClickHarm = (e, soundId) => {
+    e.stopPropagation();
+
+    setIsShakingHarm(true);
+    likeSound(soundId);
+    setTimeout(() => {
+      setIsShakingHarm(false);
+    }, 1000);
+  };
+
+  const handleLikeClickBass = (e, soundId) => {
+    e.stopPropagation();
+
+    setIsShakingBass(true);
+    likeSound(soundId);
+    setTimeout(() => {
+      setIsShakingBass(false);
+    }, 1000);
+  };
+
+  const handleLikeClickSynth = (e, soundId) => {
+    e.stopPropagation();
+
+    setIsShakingSynth(true);
+    likeSound(soundId);
+    setTimeout(() => {
+      setIsShakingSynth(false);
     }, 1000);
   };
 
@@ -291,11 +327,11 @@ const Set = () => {
         >
           <button
             className="sound__button"
-            onClick={(e) => handleLikeClick(e, drums.id)}
+            onClick={(e) => handleLikeClickDrums(e, drums.id)}
           >
             <img
               className={`sound__like-icon ${
-                isShaking ? "sound__like-icon--shake" : ""
+                isShakingDrums ? "sound__like-icon--shake" : ""
               }`}
               src={likeBtn}
               alt="like icon"
@@ -319,11 +355,11 @@ const Set = () => {
         >
           <button
             className="sound__button"
-            onClick={(e) => handleLikeClick(e, harmony.id)}
+            onClick={(e) => handleLikeClickHarm(e, harmony.id)}
           >
             <img
               className={`sound__like-icon ${
-                isShaking ? "sound__like-icon--shake" : ""
+                isShakingHarm ? "sound__like-icon--shake" : ""
               }`}
               src={likeBtn}
               alt="like icon"
@@ -347,11 +383,11 @@ const Set = () => {
         >
           <button
             className="sound__button"
-            onClick={(e) => handleLikeClick(e, bass.id)}
+            onClick={(e) => handleLikeClickBass(e, bass.id)}
           >
             <img
               className={`sound__like-icon ${
-                isShaking ? "sound__like-icon--shake" : ""
+                isShakingBass ? "sound__like-icon--shake" : ""
               }`}
               src={likeBtn}
               alt="like icon"
@@ -375,11 +411,11 @@ const Set = () => {
         >
           <button
             className="sound__button"
-            onClick={(e) => handleLikeClick(e, synth.id)}
+            onClick={(e) => handleLikeClickSynth(e, synth.id)}
           >
             <img
               className={`sound__like-icon ${
-                isShaking ? "sound__like-icon--shake" : ""
+                isShakingSynth ? "sound__like-icon--shake" : ""
               }`}
               src={likeBtn}
               alt="like icon"
