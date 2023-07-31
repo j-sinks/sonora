@@ -14,7 +14,6 @@ const SetOptions = ({
   handleSetDelete,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-
   const [editModalClass, setEditModalClass] = useState("");
 
   const handleEditClick = () => {

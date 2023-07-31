@@ -13,7 +13,6 @@ const SaveSet = ({
   resetSaveModalClass,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-
   const [input, setInput] = useState("");
   const [inputIsTouched, setInputIsTouched] = useState(false);
 

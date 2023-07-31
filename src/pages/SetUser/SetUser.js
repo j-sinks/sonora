@@ -20,20 +20,17 @@ import downloadBtn from "../../assets/images/icons/download-white.svg";
 const SetUser = () => {
   const [savedSounds, setSavedSounds] = useState([]);
   const [setData, setSetData] = useState(null);
-
   const [audioElements, setAudioElements] = useState([]);
-  const audioRefs = useRef([]);
-
   const [mutedStates, setMutedStates] = useState([]);
-
   const [editModalClass, setEditModalClass] = useState("");
-
   const [playAnimationClass, setPlayAnimationClass] = useState(true);
   // const [isShaking, setIsShaking] = useState(false);
   const [isShakingDrums, setIsShakingDrums] = useState(false);
   const [isShakingHarm, setIsShakingHarm] = useState(false);
   const [isShakingBass, setIsShakingBass] = useState(false);
   const [isShakingSynth, setIsShakingSynth] = useState(false);
+
+  const audioRefs = useRef([]);
 
   const { userId, setId } = useParams();
 

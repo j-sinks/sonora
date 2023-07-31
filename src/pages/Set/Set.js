@@ -22,21 +22,16 @@ const Set = () => {
   const [harmony, setHarmony] = useState(null);
   const [bass, setBass] = useState(null);
   const [synth, setSynth] = useState(null);
-
   const [audioElements, setAudioElements] = useState([]);
-  const audioRefs = useRef([]);
-
   const [mutedStates, setMutedStates] = useState([]);
-
   const [saveModalClass, setSaveModalClass] = useState("");
-
   const [playAnimationClass, setPlayAnimationClass] = useState(true);
-
   const [isShakingDrums, setIsShakingDrums] = useState(false);
   const [isShakingHarm, setIsShakingHarm] = useState(false);
   const [isShakingBass, setIsShakingBass] = useState(false);
   const [isShakingSynth, setIsShakingSynth] = useState(false);
 
+  const audioRefs = useRef([]);
 
   const { subgenre } = useParams();
 

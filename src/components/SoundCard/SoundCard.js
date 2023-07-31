@@ -13,11 +13,11 @@ const SoundCard = ({ soundInfo, userId, handleSoundDelete }) => {
   const { id, name, type, subgenre, url } = soundInfo;
 
   const [audioElements, setAudioElements] = useState([]);
-  const audioRefs = useRef([]);
   const [playStates, setPlayStates] = useState([]);
   const [playAnimationClass, setPlayAnimationClass] = useState(false);
-
   const [optionsModalClass, setOptionsModalClass] = useState("");
+
+  const audioRefs = useRef([]);
 
   // Update the audio ref when the component is rendered
   useEffect(() => {

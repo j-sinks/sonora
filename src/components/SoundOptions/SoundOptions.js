@@ -15,7 +15,6 @@ const SoundOptions = ({
   handleSoundDelete,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-
   const [downloadUrl, setDownloadUrl] = useState("");
 
   // On render get the sound resource and convert to blob to allow for cross origin download

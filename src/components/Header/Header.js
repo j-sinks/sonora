@@ -16,12 +16,14 @@ const Header = () => {
     <header className="header">
       <nav className="header__nav">
         <div className="header__nav-container header__nav-container--left">
-          <img
-            className="nav-icon"
-            src={backBtn}
-            alt="back icon"
-            onClick={handleBackClick}
-          />
+          <button className="header__button">
+            <img
+              className="nav-icon"
+              src={backBtn}
+              alt="back icon"
+              onClick={handleBackClick}
+            />
+          </button>
         </div>
         <div className="header__nav-container header__nav-container--center">
           <Link to="/">

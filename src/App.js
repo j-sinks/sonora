@@ -20,7 +20,7 @@ function App() {
 
   const isFirstRender = useRef(true);
 
-  // handle fucntion which is passed down to home page so state can be updated with user input
+  // handle function which is passed down to home page so state can be updated with user input
   const handleSelectedGenre = (genre) => {
     setSelectedGenre(genre);
   };

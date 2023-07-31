@@ -9,7 +9,6 @@ import playBtn from "../../assets/images/icons/play-button.svg";
 const Home = ({ handleSelectedGenre }) => {
   const [input, setInput] = useState("");
   const [inputIsTouched, setInputIsTouched] = useState(false);
-
   const [sounds, setSounds] = useState(null);
   const [subgenres, setSubgenres] = useState(null);
 

@@ -4,7 +4,6 @@ import "./EditSet.scss";
 
 const EditSet = ({ userId, setId, editModalClass, resetEditModalClass }) => {
   const [isVisible, setIsVisible] = useState(false);
-
   const [input, setInput] = useState("");
   const [inputIsTouched, setInputIsTouched] = useState(false);
 

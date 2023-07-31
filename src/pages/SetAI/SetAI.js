@@ -21,17 +21,11 @@ const SetAI = ({ selectedGenre, genreData }) => {
 
   const setSelectedGenre = useState(selectedGenre)[1];
   const setGenreData = useState(genreData)[1];
-
   const [sound1, setSound1] = useState(null);
   const [sound2, setSound2] = useState(null);
   const [sound3, setSound3] = useState(null);
   const [sound4, setSound4] = useState(null);
-
-  const sounds = [sound1, sound2, sound3, sound4];
-
   const [audioElements, setAudioElements] = useState([]);
-  const audioRefs = useRef([]);
-
   // const [loadedStates, setLoadedStates] = useState([
   //   false,
   //   false,
@@ -39,9 +33,12 @@ const SetAI = ({ selectedGenre, genreData }) => {
   //   false,
   // ]);
   const [mutedStates, setMutedStates] = useState([]);
-
   const [playAnimationClass, setPlayAnimationClass] = useState(false);
   const [isShaking, setIsShaking] = useState(false);
+
+  const audioRefs = useRef([]);
+
+  const sounds = [sound1, sound2, sound3, sound4];
 
   // Requests intial sounds from API and sets into state.
   const getInitialSounds = async () => {
