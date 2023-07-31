@@ -5,6 +5,7 @@
 .header {
   &__nav {
     @include flex(row, center, center);
+    min-width: 30rem;
 
     @include media-vertical {
       justify-content: space-between;

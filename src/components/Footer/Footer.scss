@@ -4,6 +4,7 @@
 
 .footer {
   height: 8vh;
+  min-width: 30rem;
   @include flex(row, center, center);
 
   &__text {

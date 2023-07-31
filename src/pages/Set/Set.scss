@@ -6,6 +6,9 @@
 .set {
   @include flex(column, center, center);
   height: 80vh;
+  min-height: 70rem;
+  max-height: 107rem;
+  min-width: 30rem;
   padding-top: 2.4rem;
 
   @include media-tablet {
@@ -23,7 +26,9 @@
   position: relative;
   height: 15vh;
   min-height: 10rem;
+  max-height: 17rem;
   width: 100%;
+  min-width: 18rem;
   border-radius: 0.5rem;
   margin-bottom: 0.8rem;
   padding-left: 1.6rem;
@@ -127,8 +132,10 @@
 }
 
 .controls {
+  @include flex(null, null, center);
   height: 10vh;
   min-height: 8rem;
+  max-height: 10rem;
   width: 100%;
   border-radius: 0.5rem;
   background-color: $primary-color-5;
