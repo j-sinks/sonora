@@ -20,6 +20,12 @@
   }
 }
 
+@mixin media-vertical {
+  @media (max-height: $vertical-breakpoint) {
+    @content;
+  }
+}
+
 // General
 
 @mixin flex($direction, $justify, $align) {

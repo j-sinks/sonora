@@ -5,6 +5,15 @@
 .header {
   &__nav {
     @include flex(row, center, center);
+
+    @include media-vertical {
+      justify-content: space-between;
+    }
+
+    @include media-tablet {
+      max-width: 108rem;
+      margin: 0 auto;
+    }
   }
 
   &__nav-container {
