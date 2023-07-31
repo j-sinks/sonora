@@ -25,6 +25,10 @@ The primary goal of Sonora is to address the common issue of writer's block amon
 
 ## Walkthrough
 
+#### Demo
+
+Demo video here - https://www.loom.com/share/ab2430ac331a476b9fa356662969f9a8
+
 #### Home Page
 
 - Type a genre of choice into input and press play button to generate a set using the AI functionality.

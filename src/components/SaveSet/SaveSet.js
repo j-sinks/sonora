@@ -62,6 +62,7 @@ const SaveSet = ({
 
   // Allows for the functionality outlined above, plus saves the current set
   const handleSaveSubmit = (event) => {
+    event.preventDefault();
     setInputIsTouched(true);
 
     if (!isFormValid()) {

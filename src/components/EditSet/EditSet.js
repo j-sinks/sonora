@@ -48,6 +48,7 @@ const EditSet = ({ userId, setId, editModalClass, resetEditModalClass }) => {
 
   // Allows for the functionality outlined above, plus updates selected set
   const handleEditSubmit = (event) => {
+    event.preventDefault();
     setInputIsTouched(true);
 
     if (!isFormValid()) {

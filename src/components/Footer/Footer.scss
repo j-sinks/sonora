@@ -3,7 +3,7 @@
 @use "../../styles/partials/mixins" as *;
 
 .footer {
-  height: 10vh;
+  height: 8vh;
   @include flex(row, center, center);
 
   &__text {
