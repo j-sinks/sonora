@@ -3,6 +3,8 @@
 @use "../../styles/partials/mixins" as *;
 
 .home {
+  min-width: 32rem;
+
   @include media-tablet {
     max-width: 108rem;
     margin: 0 auto;

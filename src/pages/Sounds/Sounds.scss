@@ -3,6 +3,8 @@
 @use "../../styles/partials/mixins" as *;
 
 .sounds {
+  min-width: 32rem;
+
   @include media-tablet {
     max-width: 108rem;
     margin: 0 auto;
@@ -38,7 +40,8 @@
   &__link {
     @include flex(null, center, center);
     height: 10vh;
-    min-height: 6.5rem;
+    min-height: 8rem;
+    max-height: 14rem;
     width: 100%;
     border-radius: 0.5rem;
     margin-top: 1.6rem;

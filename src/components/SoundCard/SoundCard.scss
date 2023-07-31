@@ -7,6 +7,8 @@
   @include flex(column, center, null);
   background-color: $primary-color-1;
   height: 10vh;
+  min-height: 8rem;
+  max-height: 14rem;
   width: 100%;
   border-bottom: 0.2rem solid $primary-color-6;
   padding-left: 6.4rem;
