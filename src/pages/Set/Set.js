@@ -8,7 +8,7 @@ import {
 import { randomIndex } from "../../utils/math";
 import "./Set.scss";
 import Loading from "../../components/Loading/Loading";
-import likeBtn from "../../assets/images/icons/heart-black.svg";
+// import likeBtn from "../../assets/images/icons/heart-black.svg";
 import addSound from "../../assets/images/icons/plus-grey.svg";
 import shuffleBtn from "../../assets/images/icons/ph_shuffle-fill-white.svg";
 import playBtn from "../../assets/images/icons/play-button.svg";
@@ -16,8 +16,10 @@ import stopBtn from "../../assets/images/icons/stop-button.svg";
 import resetBtn from "../../assets/images/icons//reset-button.svg";
 import saveBtn from "../../assets/images/icons/save-white.svg";
 import SaveSet from "../../components/SaveSet/SaveSet";
+import Sound from "../../components/Sound/Sound";
 
 const Set = () => {
+  const [sounds, setSounds] = useState([]);
   const [drums, setDrums] = useState(null);
   const [harmony, setHarmony] = useState(null);
   const [bass, setBass] = useState(null);
@@ -34,6 +36,8 @@ const Set = () => {
   const audioRefs = useRef([]);
 
   const { subgenre } = useParams();
+  
+  // console.log(sounds);
 
   // Requests bass sample from API using the key & scale restraints set by the harmony sample
   // If no sample in the defined key/scale exists, a random sample is selected
@@ -55,6 +59,8 @@ const Set = () => {
         );
 
         setBass(bassResponseRel.data[randomIndex(bassResponseRel.data)]);
+        setSounds([...sounds, bassResponseRel.data[randomIndex(bassResponseRel.data)]]);
+
 
         // If no match is found again, request bass in any key & scale
         if (bassResponseRel.data.length === 0) {
@@ -63,11 +69,15 @@ const Set = () => {
           );
 
           setBass(bassResponseAny.data[randomIndex(bassResponseAny.data)]);
+          setSounds([...sounds, bassResponseAny.data[randomIndex(bassResponseAny.data)]]);
+
 
           return;
         }
 
         setBass(bassResponse.data[randomIndex(bassResponse.data)]);
+        setSounds([...sounds, bassResponse.data[randomIndex(bassResponse.data)]]);
+
       }
     } catch (error) {
       console.log(
@@ -96,6 +106,7 @@ const Set = () => {
         );
 
         setSynth(synthResponseRel.data[randomIndex(synthResponseRel.data)]);
+        setSounds([...sounds, synthResponseRel.data[randomIndex(synthResponseRel.data)]]);
 
         // If no match is found again, request synth in any key & scale
         if (synthResponseRel.data.length === 0) {
@@ -104,11 +115,13 @@ const Set = () => {
           );
 
           setSynth(synthResponseAny.data[randomIndex(synthResponseAny.data)]);
+          setSounds([...sounds, synthResponseAny.data[randomIndex(synthResponseAny.data)]]);
 
           return;
         }
 
         setSynth(synthResponse.data[randomIndex(synthResponse.data)]);
+        setSounds([...sounds, synthResponse.data[randomIndex(synthResponse.data)]]);
       }
     } catch (error) {
       console.log(
@@ -128,6 +141,7 @@ const Set = () => {
       );
 
       setDrums(drumResponse.data[randomIndex(drumResponse.data)]);
+      setSounds([...sounds, drumResponse.data[randomIndex(drumResponse.data)]]);
 
       // CHORDS, KEYS & PADS
       const harmonyQuery = `?type=harmony&subgenre=${subgenre}`;
@@ -139,12 +153,14 @@ const Set = () => {
       const { key_scale, rel_key_scale } = harmonyResponse.data;
 
       setHarmony(harmonyResponse.data[randomIndex(harmonyResponse.data)]);
+      setSounds([...sounds, harmonyResponse.data[randomIndex(harmonyResponse.data)]]);
 
       // BASS
       getBass(subgenre, key_scale, rel_key_scale);
 
       // SYNTH
       getSynth(subgenre, key_scale, rel_key_scale);
+      // console.log(sounds);
     } catch (error) {
       console.log(
         `Error ${error.response.status}: ${error.response.data.message}`
@@ -308,7 +324,7 @@ const Set = () => {
   };
 
   // Loading element while any sound state is null
-  if (!drums || !harmony || !bass || !synth) {
+  if (!drums || !harmony || !bass || !synth || !sounds) {
     return <Loading />;
   }
 
@@ -316,7 +332,21 @@ const Set = () => {
     <main>
       <section className="set">
         <h1 className="set__title">{formattedSubgenre(subgenre)}</h1>
-        <article
+
+        {sounds.map((sound, index) => (
+          <Sound
+            key={index}
+            ref={(ref) => handleAudioRef(index, ref)}
+            sound={sound}
+            mutedStates={mutedStates}
+            handleMuteClick={handleMuteClick}
+            handleLikeClickDrums={handleLikeClickDrums}
+            isShakingDrums={isShakingDrums}
+            playAnimationClass={playAnimationClass}
+          />
+        ))}
+
+        {/* <article
           className={`sound sound--1 ${mutedStates[0] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(0)}
         >
@@ -344,8 +374,8 @@ const Set = () => {
             preload="auto"
             autoPlay
           ></audio>
-        </article>
-        <article
+        </article> */}
+        {/* <article
           className={`sound sound--2 ${mutedStates[1] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(1)}
         >
@@ -373,8 +403,8 @@ const Set = () => {
             preload="auto"
             autoPlay
           ></audio>
-        </article>
-        <article
+        </article> */}
+        {/* <article
           className={`sound sound--3 ${mutedStates[2] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(2)}
         >
@@ -402,8 +432,8 @@ const Set = () => {
             preload="auto"
             autoPlay
           ></audio>
-        </article>
-        <article
+        </article> */}
+        {/* <article
           className={`sound sound--4 ${mutedStates[3] ? "sound--muted" : ""}`}
           onClick={() => handleMuteClick(3)}
         >
@@ -431,7 +461,7 @@ const Set = () => {
             preload="auto"
             autoPlay
           ></audio>
-        </article>
+        </article> */}
         <article className="sound sound--add">
           <img className="sound__add-icon" src={addSound} alt="plus icon" />
         </article>
